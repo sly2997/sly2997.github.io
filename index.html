@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Sylvia Igbafe — petroleum engineer and PhD researcher. Water-based mud, biodegradable drilling additives, and machine learning applied to drilling fluid data.">
+<meta name="author" content="Sylvia Igbafe">
+<meta property="og:title" content="Sylvia Igbafe">
+<meta property="og:description" content="Petroleum engineer and PhD researcher — water-based mud and biodegradable drilling additives.">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Igbafesylvia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700;6..96,900&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* Layout: one centred column over a live canvas of suspended clay platelets that shear away from the cursor. A fixed depth gauge on the right reads scroll position as metres of hole. Committed single dark theme — burgundy on black, as asked. */
+:root{
+  --black:#0A0608;
+  --ink:#140A0E;
+  --surface:#1B0E14;
+  --line:#33181F;
+  --line-bright:#4A2029;
+  --burgundy:#6E1430;
+  --rose:#C2566E;
+  --rose-bright:#E0869A;
+  --brass:#D98EA4;
+  --cream:#F4EAE8;
+  --muted:#A08289;
+  --live:#5FBFA8;
+  --font-display:"Bodoni Moda",Didot,"Bodoni MT",Georgia,serif;
+  --font-body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--black); color:var(--cream);
+  font-family:var(--font-body); font-size:16.5px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+
+#platelets{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block}
+.page{position:relative; z-index:1}
+
+.wrap{
+  max-width:860px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+section{padding-block:clamp(44px,7.5vw,84px)}
+section + section{border-top:1px solid var(--line)}
+
+h1,h2,h3{margin:0; text-wrap:balance}
+h1{
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(2.9rem,11vw,5.4rem); line-height:.88;
+  letter-spacing:-.02em; color:var(--cream);
+}
+h2{
+  font-family:var(--font-mono); font-size:.74rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--rose);
+}
+h3{font-family:var(--font-display); font-weight:700; font-size:1.42rem; letter-spacing:-.01em}
+p{margin:0}
+
+.eyebrow{font-family:var(--font-mono); font-size:.71rem; letter-spacing:.19em; text-transform:uppercase; color:var(--brass)}
+.lead{font-size:1.16rem; line-height:1.68; max-width:58ch; color:#E6D8D7}
+.muted{color:var(--muted)}
+.stack{display:flex; flex-direction:column; gap:24px}
+
+@keyframes rise{from{opacity:0; transform:translateY(18px)}}
+@keyframes glow{from{opacity:0}}
+@media(prefers-reduced-motion:no-preference){
+  .r1{animation:rise .7s .05s cubic-bezier(.2,.7,.3,1) backwards}
+  .r2{animation:rise .7s .16s cubic-bezier(.2,.7,.3,1) backwards}
+  .r3{animation:rise .7s .27s cubic-bezier(.2,.7,.3,1) backwards}
+  .r4{animation:rise .7s .38s cubic-bezier(.2,.7,.3,1) backwards}
+  .r5{animation:glow 1.5s .5s ease backwards}
+}
+
+/* ---------- depth gauge ---------- */
+.gauge{
+  position:fixed; top:0; right:0; z-index:5; height:100%;
+  display:none; align-items:center;
+  padding-right:calc(14px + env(safe-area-inset-right,0px));
+  padding-top:env(safe-area-inset-top,0px); pointer-events:none;
+}
+@media(min-width:1040px){.gauge{display:flex}}
+.gauge-inner{display:flex; align-items:center; gap:11px}
+.gauge-track{width:2px; height:190px; background:var(--line); position:relative; border-radius:2px}
+.gauge-fill{position:absolute; top:0; left:0; width:100%; height:0%; background:linear-gradient(var(--rose),var(--burgundy)); border-radius:2px}
+.gauge-read{
+  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em;
+  color:var(--muted); font-variant-numeric:tabular-nums;
+  writing-mode:vertical-rl; text-orientation:mixed;
+}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(54px,11vw,104px)}
+.hero-grid{display:grid; gap:36px; align-items:center}
+@media(min-width:800px){.hero-grid{grid-template-columns:1fr 274px; gap:46px}}
+.hero-copy{min-width:0; display:flex; flex-direction:column; gap:22px}
+.rule{width:70px; height:3px; background:linear-gradient(90deg,var(--rose),var(--burgundy)); border:0; margin:0}
+.name-wrap em{
+  font-style:italic; font-weight:400; color:var(--rose); display:block;
+  font-size:clamp(1.05rem,3.4vw,1.5rem); font-family:var(--font-display);
+  letter-spacing:.01em; margin-top:12px;
+}
+.status-note{
+  font-family:var(--font-mono); font-size:.76rem; line-height:1.6;
+  color:var(--muted); border-left:2px solid var(--burgundy);
+  padding:3px 0 3px 15px; max-width:48ch;
+}
+.portrait{justify-self:center; width:100%; max-width:274px}
+.portrait svg{width:100%; height:auto; display:block; max-width:100%}
+
+/* ---------- lab / research / field hop ---------- */
+.scene{position:relative}
+.sc-b,.sc-c{opacity:0}
+.sc-a{opacity:1}
+.scene-label{
+  position:relative; height:1.5em; margin-top:10px; text-align:center;
+  font-family:var(--font-mono); font-size:.69rem; letter-spacing:.17em; text-transform:uppercase;
+}
+.scene-label span{position:absolute; inset:0; display:block}
+.lbl-a{color:var(--rose); opacity:1}
+.lbl-b{color:var(--cream); opacity:0}
+.lbl-c{color:var(--brass); opacity:0}
+
+@keyframes hop3{
+  0%      {transform:translateY(4px)   scaleY(.95)}
+  3%,27%  {transform:translateY(0)     scaleY(1)}
+  29%     {transform:translateY(7px)   scaleY(.91)}
+  33%     {transform:translateY(-46px) scaleY(1.07)}
+  37%     {transform:translateY(5px)   scaleY(.93)}
+  40%,60% {transform:translateY(0)     scaleY(1)}
+  62%     {transform:translateY(7px)   scaleY(.91)}
+  66%     {transform:translateY(-46px) scaleY(1.07)}
+  70%     {transform:translateY(5px)   scaleY(.93)}
+  73%,91% {transform:translateY(0)     scaleY(1)}
+  93%     {transform:translateY(7px)   scaleY(.91)}
+  97%     {transform:translateY(-46px) scaleY(1.07)}
+  100%    {transform:translateY(4px)   scaleY(.95)}
+}
+@keyframes swapA{0%,32.9%{opacity:1} 33%,96.9%{opacity:0} 97%,100%{opacity:1}}
+@keyframes swapB{0%,32.9%{opacity:0} 33%,65.9%{opacity:1} 66%,100%{opacity:0}}
+@keyframes swapC{0%,65.9%{opacity:0} 66%,96.9%{opacity:1} 97%,100%{opacity:0}}
+@keyframes shadow3{
+  0%,27%  {transform:scale(1)   ; opacity:.5}
+  33%     {transform:scale(.58) ; opacity:.18}
+  40%,60% {transform:scale(1)   ; opacity:.5}
+  66%     {transform:scale(.58) ; opacity:.18}
+  73%,91% {transform:scale(1)   ; opacity:.5}
+  97%     {transform:scale(.58) ; opacity:.18}
+  100%    {transform:scale(1)   ; opacity:.5}
+}
+@keyframes hopFrame{
+  0%     {transform:translateY(3px)}
+  3%,27% {transform:translateY(0)}
+  29%    {transform:translateY(6px)}
+  33%    {transform:translateY(-26px)}
+  37%    {transform:translateY(4px)}
+  40%,60%{transform:translateY(0)}
+  62%    {transform:translateY(6px)}
+  66%    {transform:translateY(-26px)}
+  70%    {transform:translateY(4px)}
+  73%,91%{transform:translateY(0)}
+  93%    {transform:translateY(6px)}
+  97%    {transform:translateY(-26px)}
+  100%   {transform:translateY(3px)}
+}
+@keyframes swirl{to{transform:rotate(360deg)}}
+@keyframes caret{0%,45%{opacity:1} 50%,95%{opacity:0} 100%{opacity:1}}
+@keyframes typeline{0%,10%{transform:scaleX(0)} 40%,100%{transform:scaleX(1)}}
+
+@media(prefers-reduced-motion:no-preference){
+  .px-frame{animation:hopFrame 12s cubic-bezier(.4,0,.5,1) infinite; transform-origin:50% 100%}
+  .ground{animation:shadow3 12s cubic-bezier(.4,0,.5,1) infinite; transform-origin:50% 50%}
+  .sc-a,.lbl-a{animation:swapA 12s step-end infinite}
+  .sc-b,.lbl-b{animation:swapB 12s step-end infinite}
+  .sc-c,.lbl-c{animation:swapC 12s step-end infinite}
+  .mud-swirl{animation:swirl 7s linear infinite; transform-origin:171px 196px}
+  .screen-caret{animation:caret 1.1s step-end infinite}
+  .tl1{animation:typeline 2.6s .0s ease-out infinite; transform-origin:left}
+  .tl2{animation:typeline 2.6s .35s ease-out infinite; transform-origin:left}
+  .tl3{animation:typeline 2.6s .7s ease-out infinite; transform-origin:left}
+}
+
+/* ---------- focus ---------- */
+.focus{display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
+@media(min-width:780px){.focus{grid-template-columns:repeat(3,1fr)}}
+.focus > div{background:var(--ink); padding:24px 20px; min-width:0; transition:background .25s ease}
+.focus > div:hover{background:var(--surface)}
+.focus .n{font-family:var(--font-mono); font-size:.69rem; color:var(--brass); letter-spacing:.14em; display:block; margin-bottom:12px}
+.focus h3{font-size:1.14rem; margin-bottom:9px; font-weight:500}
+.focus p{font-size:.94rem; color:var(--muted); line-height:1.6}
+
+/* ---------- projects ---------- */
+.proj{
+  display:grid; gap:14px 24px; padding:26px 20px; min-width:0;
+  border:1px solid var(--line); background:var(--ink);
+  transition:border-color .25s ease, background .25s ease;
+}
+.proj + .proj{margin-top:12px}
+.proj:hover{border-color:var(--line-bright); background:var(--surface)}
+@media(min-width:720px){.proj{grid-template-columns:54px 1fr; align-items:start}}
+.proj-id{
+  font-family:var(--font-display); font-size:1.5rem; font-weight:700;
+  color:var(--burgundy); line-height:1; padding-top:4px; transition:color .25s ease;
+}
+.proj:hover .proj-id{color:var(--rose)}
+.proj-main{min-width:0; display:flex; flex-direction:column; gap:12px}
+.proj-head{display:flex; flex-wrap:wrap; gap:11px; align-items:baseline}
+.proj-head h3{font-size:1.3rem; font-weight:700}
+.chip{
+  font-family:var(--font-mono); font-size:.64rem; letter-spacing:.13em;
+  text-transform:uppercase; padding:4px 10px; border-radius:2px;
+  border:1px solid var(--line-bright); color:var(--muted); white-space:nowrap;
+}
+.chip.live{color:var(--live); border-color:var(--live); box-shadow:0 0 14px -4px var(--live)}
+.q{font-size:.99rem; line-height:1.62; color:#E0D2D1}
+.q b{
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--rose); font-weight:500; display:block; margin-bottom:4px;
+}
+.tags{display:flex; flex-wrap:wrap; gap:7px}
+.tag{
+  font-family:var(--font-mono); font-size:.71rem; color:var(--muted);
+  background:var(--black); border:1px solid var(--line); padding:3px 9px; border-radius:2px;
+}
+.sched{font-family:var(--font-mono); font-size:.72rem; color:var(--brass); font-variant-numeric:tabular-nums; letter-spacing:.04em}
+
+.actions{display:flex; flex-wrap:wrap; gap:11px; margin-top:16px}
+.more{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em;
+  text-transform:uppercase; text-decoration:none; cursor:pointer;
+  color:var(--rose); background:transparent; border:1px solid var(--burgundy);
+  padding:11px 18px; border-radius:2px;
+  transition:background .25s ease, color .25s ease, border-color .25s ease;
+}
+.more:hover{background:var(--burgundy); color:var(--cream); border-color:var(--rose)}
+.more:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+
+/* ---------- research ---------- */
+.papers{display:flex; flex-direction:column; gap:12px}
+.paper{
+  background:var(--ink); border:1px solid var(--line); padding:22px 20px;
+  min-width:0; display:flex; flex-direction:column; gap:8px;
+  transition:border-color .25s ease, background .25s ease;
+}
+.paper:hover{border-color:var(--line-bright); background:var(--surface)}
+.paper.pending{border-style:dashed; border-color:var(--burgundy)}
+.paper .meta{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.13em; text-transform:uppercase; color:var(--brass)}
+.paper h3{font-size:1.18rem; font-weight:500}
+.paper p{font-size:.93rem; color:var(--muted)}
+.paper .authors{font-size:.88rem; color:#E0D2D1; line-height:1.55}
+.paper .authors b{font-weight:600; color:var(--rose-bright)}
+.paper .abstract{font-size:.9rem; color:var(--muted); line-height:1.62; max-width:74ch}
+.paper .doi{
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.03em;
+  color:var(--rose); text-decoration:none; word-break:break-word;
+  align-self:flex-start; border-bottom:1px solid var(--burgundy); padding-bottom:1px;
+  transition:border-color .2s ease;
+}
+.paper .doi:hover{border-color:var(--rose)}
+.paper .note{font-family:var(--font-mono); font-size:.67rem; color:var(--muted); line-height:1.5}
+.paper.featured{border-color:var(--line-bright); background:var(--surface)}
+.paper.featured .meta{color:var(--rose)}
+#morePapers{display:flex; flex-direction:column; gap:12px; margin-top:12px}
+
+/* ---------- method ---------- */
+.method{display:grid; gap:14px}
+@media(min-width:720px){.method{grid-template-columns:repeat(2,1fr)}}
+.method > div{background:var(--ink); border:1px solid var(--line); padding:22px; min-width:0; transition:border-color .25s ease}
+.method > div:hover{border-color:var(--line-bright)}
+.method h3{font-size:1.06rem; margin-bottom:8px; font-weight:500; color:var(--rose-bright)}
+.method p{font-size:.93rem; color:var(--muted); line-height:1.62}
+
+/* ---------- tools ---------- */
+.tools{display:grid; gap:12px}
+@media(min-width:620px){.tools{grid-template-columns:repeat(3,1fr)}}
+.tool{
+  background:var(--ink); border:1px solid var(--line); padding:24px 20px;
+  min-width:0; display:flex; flex-direction:column; align-items:center;
+  gap:12px; text-align:center; transition:border-color .25s ease, background .25s ease;
+}
+.tool:hover{border-color:var(--rose); background:var(--surface)}
+.tool svg{width:64px; height:64px; display:block}
+.tool h3{font-size:1.2rem; font-weight:700}
+.tool p{font-family:var(--font-mono); font-size:.72rem; color:var(--muted); line-height:1.6}
+.tool .learning{
+  font-family:var(--font-mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--rose); border:1px solid var(--burgundy); padding:3px 9px; border-radius:2px;
+}
+.practice{
+  margin-top:4px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+}
+.practice .k{font-family:var(--font-mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass); margin-right:4px}
+
+/* ---------- top nav ---------- */
+body::before{
+  content:""; position:fixed; inset:0 0 auto; z-index:21;
+  height:env(safe-area-inset-top,0px); background:var(--black);
+}
+.topnav{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:rgba(10,6,8,.93); border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.nav-inner{
+  max-width:860px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:12px;
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.brand{
+  font-family:var(--font-display); font-weight:900; font-size:1.15rem;
+  letter-spacing:-.02em; color:var(--cream); text-decoration:none;
+  border:1px solid var(--burgundy); border-radius:3px;
+  padding:3px 9px; line-height:1.2; flex:none;
+}
+.brand:hover{border-color:var(--rose); color:var(--rose)}
+.nav-links{display:flex; flex-wrap:wrap; gap:4px 18px; margin-left:auto}
+.nav-links a{
+  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--muted); text-decoration:none;
+  padding:4px 0; border-bottom:1px solid transparent;
+  transition:color .2s ease, border-color .2s ease;
+}
+.nav-links a:hover{color:var(--rose); border-color:var(--rose)}
+section[id]{scroll-margin-top:84px}
+
+/* ---------- about ---------- */
+.about-body{display:flex; flex-direction:column; gap:16px; max-width:66ch}
+.about-body p{font-size:1.03rem; line-height:1.72; color:#E8D6DB}
+.about-body b{color:var(--rose-bright); font-weight:600}
+
+/* ---------- contact form ---------- */
+.cform{display:flex; flex-direction:column; gap:14px; max-width:600px}
+.field{display:flex; flex-direction:column; gap:6px; min-width:0}
+.field label{
+  font-family:var(--font-mono); font-size:.65rem; letter-spacing:.17em;
+  text-transform:uppercase; color:var(--brass);
+}
+.field input,.field textarea{
+  width:100%; font-family:var(--font-body); font-size:.95rem; color:var(--cream);
+  background:var(--ink); border:1px solid var(--line); border-radius:3px;
+  padding:11px 13px; transition:border-color .2s ease, background .2s ease;
+}
+.field textarea{resize:vertical; min-height:120px; line-height:1.6}
+.field input:focus,.field textarea:focus{
+  outline:none; border-color:var(--rose); background:var(--surface);
+}
+.field input::placeholder,.field textarea::placeholder{color:#6E5159}
+.form-actions{display:flex; flex-wrap:wrap; gap:11px; margin-top:4px}
+.more.primary{background:var(--burgundy); color:var(--cream)}
+.more.primary:hover{background:var(--rose); border-color:var(--rose); color:var(--black)}
+.form-msg{
+  font-family:var(--font-mono); font-size:.74rem; line-height:1.6;
+  border-left:2px solid var(--burgundy); padding:4px 0 4px 13px; color:var(--muted);
+}
+.form-msg.bad{border-color:var(--rose); color:var(--rose-bright)}
+.form-msg.good{border-color:var(--live); color:var(--live)}
+
+/* ---------- scene frame ---------- */
+.px-frame{
+  position:relative; width:100%; aspect-ratio:274/372;
+  background:linear-gradient(#6E1430,#220813);
+  border:1.5px solid rgba(194,86,110,.45);
+  border-radius:50% 50% 3px 3px / 30% 30% 3px 3px;
+  overflow:hidden;
+  box-shadow:0 18px 46px -22px rgba(194,86,110,.55);
+}
+.px-frame::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:linear-gradient(to bottom, rgba(10,6,8,0) 72%, rgba(10,6,8,.6) 100%);
+}
+.scene-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 4%; display:block;
+}
+.px-ground{
+  width:56%; height:9px; margin:12px auto 0;
+  border-radius:50%; background:#060304; opacity:.5;
+}
+.vig-frame{
+  position:relative; width:100%; aspect-ratio:1/1.08;
+  border:1px solid var(--line); border-radius:3px; overflow:hidden;
+  background:#140A0E;
+}
+.vig-frame img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 2%; display:block;
+}
+
+/* ---------- section vignettes ---------- */
+.sec-head{display:grid; gap:20px; align-items:center}
+@media(min-width:700px){.sec-head{grid-template-columns:1fr 164px; gap:28px}}
+.sec-head-copy{min-width:0; display:flex; flex-direction:column; gap:12px}
+.vignette{justify-self:center; width:100%; max-width:164px}
+.vignette svg{width:100%; height:auto; display:block; max-width:100%}
+
+@keyframes drawLine{0%{stroke-dashoffset:150} 55%,100%{stroke-dashoffset:0}}
+@keyframes softPulse{0%,100%{opacity:.45} 50%{opacity:1}}
+@keyframes planeFly{0%{transform:translate(0,0); opacity:0} 14%{opacity:1} 100%{transform:translate(28px,-36px); opacity:0}}
+@keyframes lensSweep{0%,100%{transform:translateX(0)} 50%{transform:translateX(42px)}}
+@keyframes nod{0%,70%,100%{transform:rotate(0deg)} 80%{transform:rotate(-5deg)} 90%{transform:rotate(3deg)}}
+
+@media(prefers-reduced-motion:no-preference){
+  .fit-line{stroke-dasharray:150; animation:drawLine 4s ease-in-out infinite}
+  .pt1{animation:softPulse 2.4s .0s ease-in-out infinite}
+  .pt2{animation:softPulse 2.4s .3s ease-in-out infinite}
+  .pt3{animation:softPulse 2.4s .6s ease-in-out infinite}
+  .pt4{animation:softPulse 2.4s .9s ease-in-out infinite}
+  .pt5{animation:softPulse 2.4s 1.2s ease-in-out infinite}
+  .plane{animation:planeFly 3.2s ease-out infinite; transform-origin:center}
+  .plane-2{animation:planeFly 3.2s 1.6s ease-out infinite; transform-origin:center}
+  .lens{animation:lensSweep 5s ease-in-out infinite}
+  .head-nod{animation:nod 4s ease-in-out infinite}
+}
+
+/* ---------- contact ---------- */
+.cards{display:grid; gap:12px}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{
+  display:flex; flex-direction:column; gap:6px; min-width:0;
+  background:var(--ink); border:1px solid var(--line); padding:18px 20px;
+  text-decoration:none; color:inherit;
+  transition:border-color .25s ease, background .25s ease, transform .25s ease;
+}
+a.card:hover{border-color:var(--rose); background:var(--surface); transform:translateY(-2px)}
+.card .k{font-family:var(--font-mono); font-size:.65rem; letter-spacing:.17em; text-transform:uppercase; color:var(--brass)}
+.card .v{font-family:var(--font-mono); font-size:.88rem; color:var(--cream); word-break:break-word; line-height:1.5}
+a.card .v::after{content:" \2197"; color:var(--rose)}
+.card-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.copy{
+  font-family:var(--font-mono); font-size:.64rem; letter-spacing:.13em; text-transform:uppercase;
+  cursor:pointer; background:transparent; color:var(--rose);
+  border:1px solid var(--burgundy); border-radius:2px; padding:4px 10px;
+  transition:background .2s ease, color .2s ease;
+}
+.copy:hover{background:var(--burgundy); color:var(--cream)}
+.copy:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.card.pending{border-style:dashed; border-color:var(--burgundy)}
+.card.pending .v{color:var(--muted)}
+
+footer{
+  border-top:1px solid var(--line); padding-block:32px;
+  font-family:var(--font-mono); font-size:.71rem; color:var(--muted); letter-spacing:.04em;
+}
+a{color:var(--rose); text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
+</style>
+</head>
+<body>
+<canvas id="platelets" aria-hidden="true"></canvas>
+
+<div class="gauge" aria-hidden="true">
+  <div class="gauge-inner">
+    <span class="gauge-read" id="depth">0 m MD</span>
+    <div class="gauge-track"><div class="gauge-fill" id="gfill"></div></div>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">SI</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page" id="top"><div class="wrap">
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow r1">Petroleum engineer &middot; PhD researcher</p>
+        <div class="name-wrap r2">
+          <h1>Sylvia<br>Igbafe</h1>
+        </div>
+        <hr class="rule r2">
+        <p class="lead r3">I research water-based drilling muds: whether locally sourced,
+        biodegradable additives can stand in for imported CMC, PAC and xanthan gum, and whether
+        Nigerian bentonite can be treated to meet API&nbsp;13A. I am building a machine learning
+        toolkit around that work.</p>
+        <p class="status-note r4">Portfolio in build, October 2026 to April 2027.<br>
+        Five research projects. The status on each one is current, not aspirational.</p>
+      </div>
+
+      <div class="portrait r5">
+        <div class="scene">
+        <div class="px-frame">
+          <img class="sc-a scene-img" src="scene-lab.png" width="507" height="753"
+               alt="Pixel illustration of Sylvia at a laboratory bench pipetting a water-based mud sample">
+          <img class="sc-b scene-img" src="scene-desk.png" width="506" height="751"
+               alt="" aria-hidden="true">
+          <img class="sc-c scene-img" src="scene-field.png" width="501" height="744"
+               alt="" aria-hidden="true">
+        </div>
+        <div class="ground px-ground" aria-hidden="true"></div>
+        <div class="scene-label" aria-hidden="true">
+          <span class="lbl-a">In the lab</span>
+          <span class="lbl-b">Research</span>
+          <span class="lbl-c">In the field</span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="stack" id="about">
+    <h2>About me</h2>
+    <div class="about-body">
+      <p>I am a petroleum engineer and PhD researcher working on drilling fluids at Afe Babalola
+      University, Ado-Ekiti.</p>
+      <p>My research sits on one question: can water-based mud, built from materials Nigeria already
+      has, do the work that imported additives and oil-based systems do now? That means testing
+      <b>biodegradable additives</b> &mdash; cassava starch, gum arabic, plantain peel &mdash; against
+      conventional CMC, PAC and xanthan gum on the same rheology and fluid-loss tests, and asking
+      whether local bentonite can be treated to meet <b>API&nbsp;13A</b>.</p>
+      <p>I have six published papers across drilling fluids, corrosion inhibition and green hydrogen,
+      and I led the two drilling-fluid studies: spear grass as a fluid-loss additive in
+      salt-contaminated water-based mud, and a bio-lubricant from African star apple seed oil as a
+      diesel replacement in oil-based mud.</p>
+      <p>I am now learning to apply <b>machine learning</b> to that work &mdash; building datasets
+      from published literature, then modelling rheology and degradation instead of reading them off
+      one experiment at a time. The projects below are that effort, and the status on each one is
+      current rather than aspirational.</p>
+      <p>I am looking for research analyst work in oil and gas, where the job is turning difficult
+      data into something a drilling engineer can act on.</p>
+    </div>
+  </section>
+  <section class="stack">
+    <h2>Research focus</h2>
+    <div class="focus">
+      <div>
+        <span class="n">01</span>
+        <h3>Water-based mud formulation</h3>
+        <p>Beneficiation of Nigerian bentonite, rheological response to soda ash dose, and what it
+        takes to reach drilling-grade specification from local clay.</p>
+      </div>
+      <div>
+        <span class="n">02</span>
+        <h3>Biodegradable additives</h3>
+        <p>Cassava starch, gum arabic, plantain peel and similar farm-waste polymers, measured
+        against conventional CMC, PAC and xanthan gum on the same tests.</p>
+      </div>
+      <div>
+        <span class="n">03</span>
+        <h3>Niger Delta drilling problems</h3>
+        <p>Reactive shale instability, bit balling and lost circulation, and whether inhibited
+        water-based systems can displace oil-based mud in these formations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" id="work">
+    <div class="sec-head">
+      <div class="sec-head-copy">
+        <h2>Selected work</h2>
+        <p class="muted" style="font-size:.94rem; max-width:56ch">Each project answers one question and
+        closes with a cited report. Nothing is listed as finished before it is.</p>
+      </div>
+      <div class="vignette">
+        <div class="vig-frame"><img src="scene-desk.png" alt="Sylvia at her desk with a laptop and research notes"></div>
+      </div>
+    </div>
+
+    <div>
+      <article class="proj">
+        <div class="proj-id">P1</div>
+        <div class="proj-main">
+          <div class="proj-head">
+            <h3>Nigerian water-based mud formulation database</h3>
+            <span class="chip live">In progress</span>
+          </div>
+          <p class="q"><b>Question</b>Across published Nigerian beneficiation studies, which clay
+          deposits and which treatment levels actually meet API&nbsp;13A, and how close do they get
+          to imported reference bentonite?</p>
+          <p class="q"><b>Method</b>Rheology and fluid-loss results extracted by hand from 8 to 15
+          published studies into a condition-tagged dataset, then benchmarked against specification.
+          Every row carries its test temperature, aging condition and clay concentration, because
+          results measured under different protocols are not comparable.</p>
+          <div class="tags">
+            <span class="tag">Excel</span><span class="tag">pandas</span>
+            <span class="tag">matplotlib</span><span class="tag">API 13A</span>
+            <span class="tag">Literature extraction</span>
+          </div>
+          <p class="sched">Started 24 Oct 2026 &middot; report due 15 Nov 2026</p>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-id">P2</div>
+        <div class="proj-main">
+          <div class="proj-head">
+            <h3>Biodegradable against conventional additives</h3>
+            <span class="chip">Planned</span>
+          </div>
+          <p class="q"><b>Question</b>Can a locally sourced biodegradable additive replace imported
+          CMC or xanthan gum, and at what concentration?</p>
+          <p class="q"><b>Method</b>Models predicting plastic viscosity, yield point and fluid loss
+          from additive type and dose, with feature importance used to rank which variables carry
+          the performance.</p>
+          <div class="tags">
+            <span class="tag">scikit-learn</span><span class="tag">Random forest</span>
+            <span class="tag">Cross-validation</span><span class="tag">Feature importance</span>
+          </div>
+          <p class="sched">Nov to Dec 2026</p>
+        </div>
+      </article>
+
+      <div id="moreProjects" hidden>
+        <article class="proj">
+          <div class="proj-id">P3</div>
+          <div class="proj-main">
+            <div class="proj-head">
+              <h3>Thermal and aging stability of biodegradable additives</h3>
+              <span class="chip">Planned</span>
+            </div>
+            <p class="q"><b>Question</b>Natural polymers degrade downhole. How much viscosity and
+            fluid-loss control is lost as temperature and aging time rise, and how deep can each
+            additive be trusted?</p>
+            <div class="tags">
+              <span class="tag">Hot-rolling data</span><span class="tag">Curve fitting</span>
+              <span class="tag">Degradation modelling</span>
+            </div>
+            <p class="sched">Jan to Feb 2027</p>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="proj-id">P4</div>
+          <div class="proj-main">
+            <div class="proj-head">
+              <h3>Eco-friendly shale inhibition for reactive Niger Delta shales</h3>
+              <span class="chip">Planned</span>
+            </div>
+            <p class="q"><b>Question</b>How do green inhibitors perform against potassium chloride on
+            linear swelling and shale recovery tests?</p>
+            <div class="tags">
+              <span class="tag">Swelling data</span><span class="tag">Model comparison</span>
+              <span class="tag">Inhibitor ranking</span>
+            </div>
+            <p class="sched">Feb to Mar 2027</p>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="proj-id">P5</div>
+          <div class="proj-main">
+            <div class="proj-head">
+              <h3>Gas flaring trends and forecasting in Nigeria</h3>
+              <span class="chip">Planned</span>
+            </div>
+            <p class="q"><b>Question</b>How have flaring volumes moved by field and operator, and what
+            does the trend forecast?</p>
+            <div class="tags">
+              <span class="tag">NOSDRA Flare Tracker</span><span class="tag">Time series</span>
+              <span class="tag">Forecasting</span>
+            </div>
+            <p class="sched">Mar to Apr 2027</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="more" type="button" id="projToggle" aria-expanded="false" aria-controls="moreProjects">See more</button>
+      <a class="more" href="https://github.com/sly2997/oil-gas-python-portfolio" target="_blank" rel="noopener">GitHub &nbsp;&#8599;</a>
+    </div>
+  </section>
+
+  <section class="stack" id="research">
+    <div class="sec-head">
+      <div class="sec-head-copy">
+        <h2>Research</h2>
+        <p class="muted" style="font-size:.94rem; max-width:56ch">Six published papers. The two
+        drilling-fluid studies I led are shown first; the rest are behind &ldquo;See more&rdquo;.</p>
+      </div>
+      <div class="vignette">
+        <div class="vig-frame"><img src="scene-lab.png" alt="Sylvia at the laboratory bench with a water-based mud checklist"></div>
+      </div>
+    </div>
+
+    <div class="papers">
+
+      <article class="paper featured">
+        <span class="meta">SPE Nigeria Annual International Conference &middot; Lagos, August 2024 &middot; First author</span>
+        <h3>Impact of <i>Imperata cylindrica</i> on the Performance of Water Based Mud in Saline Medium</h3>
+        <p class="authors"><b>S. Igbafe</b>, A. I. Igbafe, A. Ameloko</p>
+        <p class="abstract">Spear grass (<i>Imperata cylindrica</i>) was pulverised and mixed into bentonite water-based mud, then tested for rheology, pH, mud weight and fluid loss at room temperature, 70&nbsp;&deg;C and 100&nbsp;&deg;C with salt contamination from 5 to 25&nbsp;g. At the same 1&nbsp;g loading it reduced fluid loss more effectively than xanthan gum and improved other mud properties under saline conditions.</p>
+        <a class="doi" href="https://doi.org/10.2118/221580-MS" target="_blank" rel="noopener">doi.org/10.2118/221580-MS</a>
+      </article>
+
+      <article class="paper featured">
+        <span class="meta">IOSR Journal of Biotechnology and Biochemistry &middot; 6(2), 27&ndash;32, 2020 &middot; First author</span>
+        <h3>Production and Characterization of <i>Chrysophyllum albidum</i> Seed Oil Derived Bio-lubricant for the Formulation of Oil-Based Drilling Mud</h3>
+        <p class="authors"><b>S. Igbafe</b>, A. A. Azuokwu, A. I. Igbafe</p>
+        <p class="abstract">A polyol-ester bio-lubricant was synthesised from African star apple (<i>Chrysophyllum albidum</i>) seed oil as a replacement for diesel in the continuous phase of oil-based mud. Density, viscosity, pour point and flash point met ASTM standards and compared favourably with diesel, with lower toxicity and better biodegradability.</p>
+        <a class="doi" href="https://doi.org/10.9790/264X-0602012732" target="_blank" rel="noopener">doi.org/10.9790/264X-0602012732</a>
+      </article>
+
+      <div id="morePapers" hidden>
+
+        <article class="paper">
+          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(3), 134&ndash;147, 2025</span>
+          <h3>Synthesis and Application of Starch-Modified Chitosan-Silver Nanoparticle Composite as Green Corrosion Inhibitor for Mild Steel in Acidic Media</h3>
+          <p class="authors">Anthonia Fidamilare Fidudusola, <b>Sylvia Igbafe</b>, Anselm Iuebego Igbafe</p>
+          <p class="abstract">A green corrosion inhibitor was built from waste cassava peel starch, chitosan from snail shells and green-synthesised silver nanoparticles, then tested on mild steel in dilute hydrochloric acid. The composite reached up to 97&nbsp;% inhibition efficiency by forming a protective film, the nanoparticles improving stability and the biopolymers keeping it non-toxic.</p>
+          <a class="doi" href="https://doi.org/10.53982/ajerd" target="_blank" rel="noopener">doi.org/10.53982/ajerd</a>
+          <p class="note">Journal-level DOI &mdash; the article DOI is not printed on the paper.</p>
+        </article>
+
+        <article class="paper">
+          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(1), 315&ndash;323, 2025</span>
+          <h3>Semi Empirical Modelling of Alkaline Water Electrolysis Green Hydrogen Using Biosynthesized Lye and Caustic Soda Electrolytes</h3>
+          <p class="authors">Anthony Owoicho Ijiga, <b>Sylvia Igbafe</b>, Akeem Aderibigbe Adebomehin, Anselm Iuebego Igbafe</p>
+          <p class="abstract">Semi-empirical models were fitted for cell voltage, Faraday efficiency and gas purity in alkaline water electrolysis, using lye from charred plantain peel and caustic soda from seawater at 25&ndash;35&nbsp;g/L and 45&ndash;85&nbsp;&deg;C. Most models fitted well, with R&sup2; between 0.96 and 0.999.</p>
+          <a class="doi" href="https://doi.org/10.53982/ajerd" target="_blank" rel="noopener">doi.org/10.53982/ajerd</a>
+          <p class="note">Journal-level DOI &mdash; the article DOI is not printed on the paper.</p>
+        </article>
+
+        <article class="paper">
+          <span class="meta">Computational and Experimental Research in Materials and Renewable Energy &middot; 7(2), 105&ndash;118, 2024</span>
+          <h3>Applications of Green Inhibitors of Sugarcane Bagasse and Garcinia Kola Fruit Pod for Mild Steel Natural Gas Pipeline Corrosion Inhibition in Acidic Medium</h3>
+          <p class="authors">Teddy Ekimimosugha Jemine, <b>Sylvia Igbafe</b>, Adekunle Timisiriyu Adeniyi, Anselm Iuebego Igbafe</p>
+          <p class="abstract">Ethanol extracts of sugarcane bagasse and garcinia kola fruit pod were tested as green corrosion inhibitors for mild steel gas pipeline in acid, using a central composite design across concentration, exposure time and temperature. Best efficiencies were 92&nbsp;% and 90&nbsp;% respectively, with garcinia kola the stronger inhibitor overall.</p>
+          <a class="doi" href="https://doi.org/10.19184/cerimre.v7i2.50834" target="_blank" rel="noopener">doi.org/10.19184/cerimre.v7i2.50834</a>
+        </article>
+
+        <article class="paper">
+          <span class="meta">TWIST &middot; 19(4), 5&ndash;13, 2024</span>
+          <h3>Optimization of Green Hydrogen Production in Alkaline Water Electrolysis with Bio Synthesized Lye and Caustic Soda Electrolytes using Taguchi OA</h3>
+          <p class="authors">Anthony Owoicho Ijiga, <b>Sylvia Igbafe</b>, Akeem Aderibigbe Adebomehin, Anselm Iuebego Igbafe</p>
+          <p class="abstract">A Taguchi orthogonal array was used to find the conditions that maximise hydrogen volume in alkaline water electrolysis with plantain-peel lye and seawater-derived caustic soda. The optimum was 30&nbsp;g/L, 15 minutes, 85&nbsp;&deg;C and 7&nbsp;V for KOH, and 35&nbsp;g/L, 15 minutes, 45&nbsp;&deg;C and 7&nbsp;V for NaOH.</p>
+          <a class="doi" href="https://doi.org/10.5281/zenodo.10049652" target="_blank" rel="noopener">doi.org/10.5281/zenodo.10049652</a>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="more" type="button" id="paperToggle" aria-expanded="false" aria-controls="morePapers">See more</button>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>How I work</h2>
+    <div class="method">
+      <div>
+        <h3>Published data, not synthetic</h3>
+        <p>The formulation data comes from peer-reviewed studies, extracted by hand. Where a dataset
+        is partly synthetic, it says so.</p>
+      </div>
+      <div>
+        <h3>Test conditions on every row</h3>
+        <p>Temperature, aging condition and concentration travel with each measurement. A model
+        trained across mixed protocols learns laboratory differences and calls them chemistry.</p>
+      </div>
+      <div>
+        <h3>A cited report closes every project</h3>
+        <p>IMRaD structure, references managed in Zotero, and a limitations section written to be
+        read rather than skipped.</p>
+      </div>
+      <div>
+        <h3>Data and notebooks published</h3>
+        <p>Each project ships its dataset, its notebook and a README, so the analysis can be checked
+        and repeated.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" id="tools">
+    <h2>Tools</h2>
+    <div class="tools">
+
+      <div class="tool">
+        <svg viewBox="0 0 64 64" role="img" aria-label="Code brackets with flowing data">
+          <rect x="4" y="8" width="56" height="48" rx="7" fill="#140A0E" stroke="#33181F" stroke-width="2"/>
+          <g stroke="#C2566E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M22 24 L13 32 L22 40"/><path d="M42 24 L51 32 L42 40"/>
+          </g>
+          <path d="M36 21 L28 43" stroke="#C2566E" stroke-width="3" stroke-linecap="round"/>
+          <rect class="screen-caret" x="29" y="46" width="3" height="6" rx="1" fill="#C2566E"/>
+        </svg>
+        <h3>Python</h3>
+        <p>pandas &middot; matplotlib<br>scikit-learn</p>
+        <span class="learning">Learning</span>
+      </div>
+
+      <div class="tool">
+        <svg viewBox="0 0 64 64" role="img" aria-label="Spreadsheet grid with a small bar chart">
+          <rect x="6" y="8" width="52" height="48" rx="5" fill="#140A0E" stroke="#33181F" stroke-width="2"/>
+          <rect x="6" y="8" width="52" height="10" rx="5" fill="#6E1430"/>
+          <g stroke="#33181F" stroke-width="1.6">
+            <path d="M23 18 V56"/><path d="M41 18 V56"/>
+            <path d="M6 31 H58"/><path d="M6 43 H58"/>
+          </g>
+          <rect class="tl1" x="8" y="21" width="13" height="6" rx="1.5" fill="#C2566E"/>
+          <rect class="tl2" x="26" y="33" width="13" height="6" rx="1.5" fill="#C2566E"/>
+          <rect class="tl3" x="44" y="45" width="12" height="6" rx="1.5" fill="#C2566E"/>
+        </svg>
+        <h3>Excel</h3>
+        <p>Data cleaning<br>formulas &middot; charts</p>
+      </div>
+
+      <div class="tool">
+        <svg viewBox="0 0 64 64" role="img" aria-label="Stacked database discs">
+          <g fill="#140A0E" stroke="#33181F" stroke-width="2">
+            <ellipse cx="32" cy="16" rx="21" ry="8"/>
+            <path d="M11 16 V30 a21 8 0 0 0 42 0 V16"/>
+            <path d="M11 30 V44 a21 8 0 0 0 42 0 V30"/>
+          </g>
+          <ellipse cx="32" cy="16" rx="21" ry="8" fill="#6E1430"/>
+          <ellipse class="tl1" cx="32" cy="30" rx="16" ry="5" fill="#C2566E" opacity=".65"/>
+          <ellipse class="tl2" cx="32" cy="44" rx="16" ry="5" fill="#C2566E" opacity=".5"/>
+        </svg>
+        <h3>SQL</h3>
+        <p>Querying &middot; joins<br>aggregation</p>
+        <span class="learning">Learning</span>
+      </div>
+
+    </div>
+
+    <div class="practice">
+      <span class="k">Research practice</span>
+      <span class="tag">Zotero</span>
+      <span class="tag">IMRaD writing</span>
+      <span class="tag">Literature data extraction</span>
+    </div>
+  </section>
+
+  <section class="stack" id="contact">
+    <div class="sec-head">
+      <div class="sec-head-copy">
+        <h2>Contact</h2>
+        <p class="muted" style="font-size:.94rem; max-width:56ch">Reach me by email or on LinkedIn.</p>
+      </div>
+      <div class="vignette">
+        <div class="vig-frame"><img src="scene-field.png" alt="Sylvia on location in coveralls and a hard hat with a clipboard"></div>
+      </div>
+    </div>
+
+    <form class="cform" id="contactForm" novalidate>
+      <input type="hidden" name="access_key" id="w3key" value="3476d960-2105-4fcf-a740-e216abe22039">
+      <input type="hidden" name="subject" value="New message from your portfolio">
+      <input type="hidden" name="from_name" value="Igbafesylvia portfolio">
+      <input type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off"
+             aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe">
+      </div>
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="jane@company.com">
+      </div>
+      <div class="field">
+        <label for="cf-msg">Your message</label>
+        <textarea id="cf-msg" name="message" rows="5" placeholder="What would you like to talk about?"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="more primary" type="submit" id="cf-send">Send message</button>
+      </div>
+      <p class="form-msg" id="cf-status">Messages go straight to my inbox.</p>
+    </form>
+
+    <div class="cards">
+      <div class="card">
+        <span class="k">Email</span>
+        <div class="card-row">
+          <span class="v" id="mail">igbafesylvia@gmail.com</span>
+          <button class="copy" id="copyBtn" type="button">Copy</button>
+        </div>
+      </div>
+      <a class="card" href="https://www.linkedin.com/in/sylvia-igbafe" target="_blank" rel="noopener">
+        <span class="k">LinkedIn</span>
+        <span class="v">sylvia-igbafe</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Sylvia Igbafe &middot; drilling fluids research portfolio &middot; status updated as each project closes
+  </footer>
+
+</div></div>
+
+<script>
+(function(){
+  var cv = document.getElementById('platelets');
+  if(cv){
+    var ctx = cv.getContext('2d');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, plates = [];
+    var mx = -9999, my = -9999;
+
+    // --- the floating kit: drawn in a unit box, scaled per item ---
+    function laptop(c){
+      c.beginPath(); c.rect(-0.68, -0.72, 1.36, 0.92); c.stroke();
+      c.beginPath(); c.rect(-0.5, -0.56, 1.0, 0.6); c.stroke();
+      c.beginPath();
+      c.moveTo(-0.95, 0.26); c.lineTo(0.95, 0.26);
+      c.lineTo(0.76, 0.52); c.lineTo(-0.76, 0.52); c.closePath(); c.stroke();
+    }
+    function paper(c){
+      c.beginPath(); c.rect(-0.58, -0.85, 1.16, 1.7); c.stroke();
+      for(var i = 0; i < 4; i++){
+        var y = -0.46 + i * 0.37;
+        c.beginPath(); c.moveTo(-0.36, y); c.lineTo(i === 3 ? 0.1 : 0.36, y); c.stroke();
+      }
+    }
+    function beaker(c){
+      c.beginPath();
+      c.moveTo(-0.5, -0.78); c.lineTo(-0.5, 0.56);
+      c.quadraticCurveTo(-0.5, 0.84, -0.22, 0.84);
+      c.lineTo(0.22, 0.84);
+      c.quadraticCurveTo(0.5, 0.84, 0.5, 0.56);
+      c.lineTo(0.5, -0.78); c.stroke();
+      c.beginPath(); c.moveTo(-0.62, -0.78); c.lineTo(0.62, -0.78); c.stroke();
+      c.beginPath(); c.moveTo(-0.48, 0.24); c.lineTo(0.48, 0.24); c.stroke();
+      c.beginPath(); c.moveTo(0.5, -0.4); c.lineTo(0.26, -0.4); c.stroke();
+      c.beginPath(); c.moveTo(0.5, -0.1); c.lineTo(0.26, -0.1); c.stroke();
+    }
+    function flask(c){
+      c.beginPath();
+      c.moveTo(-0.2, -0.85); c.lineTo(-0.2, -0.22); c.lineTo(-0.72, 0.74);
+      c.lineTo(0.72, 0.74); c.lineTo(0.2, -0.22); c.lineTo(0.2, -0.85);
+      c.closePath(); c.stroke();
+      c.beginPath(); c.moveTo(-0.46, 0.4); c.lineTo(0.46, 0.4); c.stroke();
+    }
+    function tube(c){
+      c.beginPath();
+      c.moveTo(-0.24, -0.85); c.lineTo(-0.24, 0.5);
+      c.quadraticCurveTo(-0.24, 0.84, 0, 0.84);
+      c.quadraticCurveTo(0.24, 0.84, 0.24, 0.5);
+      c.lineTo(0.24, -0.85); c.stroke();
+      c.beginPath(); c.moveTo(-0.34, -0.85); c.lineTo(0.34, -0.85); c.stroke();
+      c.beginPath(); c.moveTo(-0.22, 0.18); c.lineTo(0.22, 0.18); c.stroke();
+    }
+    function gear(c){
+      c.beginPath(); c.arc(0, 0, 0.42, 0, Math.PI * 2); c.stroke();
+      c.beginPath(); c.arc(0, 0, 0.16, 0, Math.PI * 2); c.stroke();
+      for(var i = 0; i < 8; i++){
+        var t = i * Math.PI / 4;
+        c.beginPath();
+        c.moveTo(Math.cos(t) * 0.46, Math.sin(t) * 0.46);
+        c.lineTo(Math.cos(t) * 0.78, Math.sin(t) * 0.78);
+        c.stroke();
+      }
+    }
+    function wrench(c){
+      c.beginPath();
+      c.moveTo(-0.44, -0.85); c.lineTo(-0.44, -0.38); c.lineTo(-0.15, -0.2);
+      c.lineTo(-0.15, 0.85); c.lineTo(0.15, 0.85); c.lineTo(0.15, -0.2);
+      c.lineTo(0.44, -0.38); c.lineTo(0.44, -0.85);
+      c.lineTo(0.17, -0.85); c.lineTo(0.17, -0.56);
+      c.lineTo(-0.17, -0.56); c.lineTo(-0.17, -0.85);
+      c.closePath(); c.stroke();
+    }
+    function hardhat(c){
+      c.beginPath(); c.arc(0, 0.18, 0.56, Math.PI, 0); c.stroke();
+      c.beginPath(); c.moveTo(-0.86, 0.2); c.lineTo(0.86, 0.2); c.stroke();
+      c.beginPath(); c.moveTo(0, -0.38); c.lineTo(0, 0.18); c.stroke();
+    }
+    var SHAPES = [laptop, paper, beaker, flask, tube, gear, wrench, hardhat];
+
+    function seed(){
+      var n = Math.round(Math.min(34, Math.max(12, (W * H) / 52000)));
+      plates = [];
+      for(var i=0; i<n; i++){
+        plates.push({
+          x: Math.random() * W, y: Math.random() * H,
+          s: 11 + Math.random() * 13,
+          k: (Math.random() * SHAPES.length) | 0,
+          a: (Math.random() - 0.5) * 0.9, spin: (Math.random() - 0.5) * 0.004,
+          vx: (Math.random() - 0.5) * 0.22, vy: -0.06 - Math.random() * 0.26,
+          al: 0.12 + Math.random() * 0.26
+        });
+      }
+    }
+    function resize(){
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+      if(reduce) draw();
+    }
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      for(var i=0; i<plates.length; i++){
+        var p = plates[i];
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.a);
+        ctx.scale(p.s, p.s);
+        ctx.lineWidth = 1.5 / p.s;
+        ctx.strokeStyle = 'rgba(194,86,110,' + p.al.toFixed(3) + ')';
+        SHAPES[p.k](ctx);
+        ctx.restore();
+      }
+    }
+    function step(){
+      for(var i=0; i<plates.length; i++){
+        var p = plates[i];
+        var dx = p.x - mx, dy = p.y - my;
+        var d2 = dx*dx + dy*dy;
+        if(d2 < 20000 && d2 > 0.01){
+          var d = Math.sqrt(d2);
+          var f = (1 - d / 141.4) * 0.9;
+          p.vx += (dx / d) * f; p.vy += (dy / d) * f; p.spin += f * 0.004;
+        }
+        p.x += p.vx; p.y += p.vy; p.a += p.spin;
+        p.vx *= 0.955; p.vy *= 0.955; p.spin *= 0.97;
+        p.vy -= 0.004;
+        if(p.vy < -0.5) p.vy = -0.5;
+        if(p.y < -46){ p.y = H + 46; p.x = Math.random() * W; }
+        if(p.y > H + 46) p.y = -46;
+        if(p.x < -52) p.x = W + 52;
+        if(p.x > W + 52) p.x = -52;
+      }
+      draw();
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', function(e){ mx = e.clientX; my = e.clientY; }, {passive:true});
+    window.addEventListener('pointerleave', function(){ mx = -9999; my = -9999; });
+    resize();
+    if(!reduce) requestAnimationFrame(step);
+  }
+
+  // depth gauge
+  var fill = document.getElementById('gfill');
+  var read = document.getElementById('depth');
+  var TD = 3250;
+  function gauge(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var f = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if(fill) fill.style.height = (f * 100).toFixed(1) + '%';
+    if(read) read.textContent = Math.round(f * TD).toLocaleString('en-US') + ' m MD';
+  }
+  window.addEventListener('scroll', gauge, {passive:true});
+  window.addEventListener('resize', gauge);
+  gauge();
+
+  // see more toggles
+  function wire(btnId, panelId){
+    var b = document.getElementById(btnId), p = document.getElementById(panelId);
+    if(!b || !p) return;
+    b.addEventListener('click', function(){
+      var open = p.hidden;
+      p.hidden = !open;
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.textContent = open ? 'See less' : 'See more';
+      gauge();
+    });
+  }
+  wire('projToggle', 'moreProjects');
+  wire('paperToggle', 'morePapers');
+
+  // contact form
+  var form = document.getElementById('contactForm');
+  if(form){
+    var status = document.getElementById('cf-status');
+    var btn    = document.getElementById('cf-send');
+    var fName  = document.getElementById('cf-name');
+    var fMail  = document.getElementById('cf-email');
+    var fMsg   = document.getElementById('cf-msg');
+    var keyEl  = document.getElementById('w3key');
+    var honey  = document.getElementById('botcheck');
+    var HINT   = status ? status.textContent : '';
+    var PLACEHOLDER = 'PASTE-YOUR-WEB3FORMS-KEY-HERE';
+
+    function say(text, kind){
+      if(!status) return;
+      status.textContent = text;
+      status.className = 'form-msg' + (kind ? ' ' + kind : '');
+    }
+    function composed(){
+      return 'From: ' + fName.value.trim()
+           + '\nEmail: ' + fMail.value.trim()
+           + '\n\n' + fMsg.value.trim();
+    }
+    function copyFallback(why){
+      var text = composed();
+      var ok = function(){ say(why + ' Your message is copied \u2014 please paste it into an email to igbafesylvia@gmail.com.', 'good'); };
+      var manual = function(){ say(why + ' Please email igbafesylvia@gmail.com instead.', 'bad'); };
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(ok, manual);
+        } else { manual(); }
+      }catch(e){ manual(); }
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(honey && honey.checked) return;              // bot trap
+      var name = fName.value.trim(), mail = fMail.value.trim(), msg = fMsg.value.trim();
+      if(!name || !mail || !msg){ say('Please fill in your name, your email and a message.', 'bad'); return; }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)){ say('That email address does not look right.', 'bad'); return; }
+
+      var key = keyEl ? keyEl.value.trim() : '';
+      if(!key || key === PLACEHOLDER){
+        copyFallback('Sending is not switched on yet.');
+        return;
+      }
+
+      if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+      say('Sending\u2026', '');
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json', 'Accept':'application/json'},
+        body: JSON.stringify({
+          access_key: key,
+          subject: 'New message from your portfolio',
+          from_name: 'Igbafesylvia portfolio',
+          name: name, email: mail, message: msg
+        })
+      })
+      .then(function(r){ return r.json().catch(function(){ return {success:false}; }); })
+      .then(function(d){
+        if(btn){ btn.disabled = false; btn.textContent = 'Send message'; }
+        if(d && d.success){
+          form.reset();
+          say('Thank you \u2014 your message has been sent. I will reply to ' + mail + '.', 'good');
+        } else {
+          copyFallback('That did not send.');
+        }
+      })
+      .catch(function(){
+        if(btn){ btn.disabled = false; btn.textContent = 'Send message'; }
+        copyFallback('That did not send.');
+      });
+    });
+
+    form.addEventListener('input', function(){
+      if(status && status.className !== 'form-msg') say(HINT, '');
+    });
+  }
+
+  // copy email
+  var btn = document.getElementById('copyBtn');
+  var mail = document.getElementById('mail');
+  if(btn && mail){
+    btn.addEventListener('click', function(){
+      var done = function(){
+        btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = 'Copy'; }, 1800);
+      };
+      var manual = function(){
+        try{
+          var r = document.createRange();
+          r.selectNodeContents(mail);
+          var s = window.getSelection();
+          s.removeAllRanges(); s.addRange(r);
+          btn.textContent = 'Press Ctrl+C';
+          setTimeout(function(){ btn.textContent = 'Copy'; }, 2600);
+        }catch(e){}
+      };
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(mail.textContent.trim()).then(done, manual);
+        } else { manual(); }
+      }catch(e){ manual(); }
+    });
+  }
+})();
+</script>
+</body>
+</html>
