@@ -21,22 +21,36 @@ img{max-width:100%}
 <style>
 /* Layout: one centred column over a live canvas of suspended clay platelets that shear away from the cursor. A fixed depth gauge on the right reads scroll position as metres of hole. Committed single dark theme — burgundy on black, as asked. */
 :root{
-  --black:#0A0608;
-  --ink:#140A0E;
-  --surface:#1B0E14;
-  --line:#33181F;
-  --line-bright:#4A2029;
-  --burgundy:#6E1430;
-  --rose:#C2566E;
-  --rose-bright:#E0869A;
-  --brass:#D98EA4;
-  --cream:#F4EAE8;
-  --muted:#A08289;
-  --live:#5FBFA8;
+  --black:#0D110F;
+  --ink:#172B35;
+  --surface:#1C3A51;
+  --line:#204A7A;
+  --line-bright:#2C5E94;
+  --burgundy:#204A7A;
+  --rose:#5C92CE;
+  --rose-bright:#8FB8E4;
+  --brass:#7FA8D4;
+  --cream:#E6EEF6;
+  --muted:#8FA3B5;
+  --live:#BBD6EF;
   --font-display:"Bodoni Moda",Didot,"Bodoni MT",Georgia,serif;
   --font-body:"Archivo","Helvetica Neue",Arial,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   color-scheme:dark;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+  --black:#F8F7FF; --ink:#FFFFFF; --surface:#FFEEDD; --line:#DEDCF5;
+  --line-bright:#B8B8FF; --burgundy:#9381FF; --rose:#6B55E0;
+  --rose-bright:#9381FF; --brass:#B05F24; --cream:#241F3D;
+  --muted:#6E6A8C; --live:#5A47C8; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --black:#F8F7FF; --ink:#FFFFFF; --surface:#FFEEDD; --line:#DEDCF5;
+  --line-bright:#B8B8FF; --burgundy:#9381FF; --rose:#6B55E0;
+  --rose-bright:#9381FF; --brass:#B05F24; --cream:#241F3D;
+  --muted:#6E6A8C; --live:#5A47C8; color-scheme:light;
 }
 
 *{box-sizing:border-box}
@@ -71,7 +85,7 @@ h3{font-family:var(--font-display); font-weight:700; font-size:1.42rem; letter-s
 p{margin:0}
 
 .eyebrow{font-family:var(--font-mono); font-size:.71rem; letter-spacing:.19em; text-transform:uppercase; color:var(--brass)}
-.lead{font-size:1.16rem; line-height:1.68; max-width:58ch; color:#E6D8D7}
+.lead{font-size:1.16rem; line-height:1.68; max-width:58ch; color:var(--cream)}
 .muted{color:var(--muted)}
 .stack{display:flex; flex-direction:column; gap:24px}
 
@@ -225,7 +239,7 @@ p{margin:0}
   border:1px solid var(--line-bright); color:var(--muted); white-space:nowrap;
 }
 .chip.live{color:var(--live); border-color:var(--live); box-shadow:0 0 14px -4px var(--live)}
-.q{font-size:.99rem; line-height:1.62; color:#E0D2D1}
+.q{font-size:.99rem; line-height:1.62; color:var(--cream)}
 .q b{
   font-family:var(--font-mono); font-size:.66rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--rose); font-weight:500; display:block; margin-bottom:4px;
@@ -261,7 +275,7 @@ p{margin:0}
 .paper .meta{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.13em; text-transform:uppercase; color:var(--brass)}
 .paper h3{font-size:1.18rem; font-weight:500}
 .paper p{font-size:.93rem; color:var(--muted)}
-.paper .authors{font-size:.88rem; color:#E0D2D1; line-height:1.55}
+.paper .authors{font-size:.88rem; color:var(--cream); line-height:1.55}
 .paper .authors b{font-weight:600; color:var(--rose-bright)}
 .paper .abstract{font-size:.9rem; color:var(--muted); line-height:1.62; max-width:74ch}
 .paper .doi{
@@ -318,7 +332,7 @@ body::before{
 }
 .topnav{
   position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
-  background:rgba(10,6,8,.93); border-bottom:1px solid var(--line);
+  background:var(--black); border-bottom:1px solid var(--line);
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
 }
 .nav-inner{
@@ -343,11 +357,30 @@ body::before{
   transition:color .2s ease, border-color .2s ease;
 }
 .nav-links a:hover{color:var(--rose); border-color:var(--rose)}
+.themebtn{
+  flex:none; cursor:pointer; background:transparent;
+  border:1px solid var(--line); border-radius:3px; padding:5px 7px;
+  color:var(--muted); line-height:0;
+  transition:color .2s ease, border-color .2s ease;
+}
+.themebtn:hover{color:var(--rose); border-color:var(--rose)}
+.themebtn:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.themebtn svg{width:17px; height:17px; display:block}
+.ico-sun{display:block}
+.ico-moon{display:none}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]) .ico-sun{display:none}
+  :root:not([data-theme="dark"]) .ico-moon{display:block}
+}
+:root[data-theme="light"] .ico-sun{display:none}
+:root[data-theme="light"] .ico-moon{display:block}
+:root[data-theme="dark"]  .ico-sun{display:block}
+:root[data-theme="dark"]  .ico-moon{display:none}
 section[id]{scroll-margin-top:84px}
 
 /* ---------- about ---------- */
 .about-body{display:flex; flex-direction:column; gap:16px; max-width:66ch}
-.about-body p{font-size:1.03rem; line-height:1.72; color:#E8D6DB}
+.about-body p{font-size:1.03rem; line-height:1.72; color:var(--cream)}
 .about-body b{color:var(--rose-bright); font-weight:600}
 
 /* ---------- contact form ---------- */
@@ -366,7 +399,7 @@ section[id]{scroll-margin-top:84px}
 .field input:focus,.field textarea:focus{
   outline:none; border-color:var(--rose); background:var(--surface);
 }
-.field input::placeholder,.field textarea::placeholder{color:#6E5159}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
 .form-actions{display:flex; flex-wrap:wrap; gap:11px; margin-top:4px}
 .more.primary{background:var(--burgundy); color:var(--cream)}
 .more.primary:hover{background:var(--rose); border-color:var(--rose); color:var(--black)}
@@ -380,15 +413,15 @@ section[id]{scroll-margin-top:84px}
 /* ---------- scene frame ---------- */
 .px-frame{
   position:relative; width:100%; aspect-ratio:274/372;
-  background:linear-gradient(#6E1430,#220813);
-  border:1.5px solid rgba(194,86,110,.45);
+  background:linear-gradient(var(--burgundy),var(--black));
+  border:1.5px solid var(--line-bright);
   border-radius:50% 50% 3px 3px / 30% 30% 3px 3px;
   overflow:hidden;
-  box-shadow:0 18px 46px -22px rgba(194,86,110,.55);
+  box-shadow:0 18px 46px -22px var(--burgundy);
 }
 .px-frame::after{
   content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
-  background:linear-gradient(to bottom, rgba(10,6,8,0) 72%, rgba(10,6,8,.6) 100%);
+  background:linear-gradient(to bottom, transparent 72%, var(--black) 100%);
 }
 .scene-img{
   position:absolute; inset:0; width:100%; height:100%;
@@ -396,12 +429,12 @@ section[id]{scroll-margin-top:84px}
 }
 .px-ground{
   width:56%; height:9px; margin:12px auto 0;
-  border-radius:50%; background:#060304; opacity:.5;
+  border-radius:50%; background:var(--black); opacity:.5;
 }
 .vig-frame{
   position:relative; width:100%; aspect-ratio:1/1.08;
   border:1px solid var(--line); border-radius:3px; overflow:hidden;
-  background:#140A0E;
+  background:var(--ink);
 }
 .vig-frame img{
   position:absolute; inset:0; width:100%; height:100%;
@@ -487,6 +520,17 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <a href="#tools">Tools</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="themebtn" type="button" id="themeToggle" aria-label="Switch between light and dark">
+      <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4.4"/>
+        <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>
+      </svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7.2 7.2 0 1 0 10.5 10.5Z"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -800,52 +844,52 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div class="toolgrid">
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Code brackets with a blinking caret">
-  <rect x="3" y="7" width="42" height="34" rx="5" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <g stroke="#C2566E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <rect x="3" y="7" width="42" height="34" rx="5" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <g stroke="var(--rose)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <path d="M17 18 L11 24 L17 30"/><path d="M31 18 L37 24 L31 30"/>
   </g>
-  <path d="M27 16 L21 32" stroke="#D98EA4" stroke-width="2.2" stroke-linecap="round"/>
-  <rect class="screen-caret" x="22" y="34" width="2.4" height="4" rx="1" fill="#D98EA4"/></svg>
+  <path d="M27 16 L21 32" stroke="var(--brass)" stroke-width="2.2" stroke-linecap="round"/>
+  <rect class="screen-caret" x="22" y="34" width="2.4" height="4" rx="1" fill="var(--brass)"/></svg>
         <span class="nm">Python</span>
         <span class="sub">pandas &middot; matplotlib &middot; scikit-learn</span>
         <span class="learning">Learning</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Spreadsheet grid with cells filling">
-  <rect x="5" y="7" width="38" height="34" rx="4" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <rect x="5" y="7" width="38" height="8" rx="4" fill="#6E1430"/>
-  <g stroke="#33181F" stroke-width="1.3">
+  <rect x="5" y="7" width="38" height="34" rx="4" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <rect x="5" y="7" width="38" height="8" rx="4" fill="var(--burgundy)"/>
+  <g stroke="var(--line)" stroke-width="1.3">
     <path d="M18 15 V41"/><path d="M31 15 V41"/><path d="M5 24 H43"/><path d="M5 33 H43"/>
   </g>
-  <rect class="tl1" x="7" y="17" width="9" height="5" rx="1" fill="#C2566E" style="transform-origin:7px 17px"/>
-  <rect class="tl2" x="20" y="26" width="9" height="5" rx="1" fill="#C2566E" style="transform-origin:20px 26px"/>
-  <rect class="tl3" x="33" y="35" width="8" height="5" rx="1" fill="#D98EA4" style="transform-origin:33px 35px"/></svg>
+  <rect class="tl1" x="7" y="17" width="9" height="5" rx="1" fill="var(--rose)" style="transform-origin:7px 17px"/>
+  <rect class="tl2" x="20" y="26" width="9" height="5" rx="1" fill="var(--rose)" style="transform-origin:20px 26px"/>
+  <rect class="tl3" x="33" y="35" width="8" height="5" rx="1" fill="var(--brass)" style="transform-origin:33px 35px"/></svg>
         <span class="nm">Excel</span>
         <span class="sub">cleaning &middot; formulas &middot; charts</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Stacked database discs">
-  <g fill="#140A0E" stroke="#33181F" stroke-width="1.6">
+  <g fill="var(--ink)" stroke="var(--line)" stroke-width="1.6">
     <ellipse cx="24" cy="12" rx="15" ry="6"/>
     <path d="M9 12 V23 a15 6 0 0 0 30 0 V12"/>
     <path d="M9 23 V34 a15 6 0 0 0 30 0 V23"/>
   </g>
-  <ellipse cx="24" cy="12" rx="15" ry="6" fill="#6E1430"/>
-  <ellipse class="pt1" cx="24" cy="23" rx="11" ry="4" fill="#C2566E" opacity=".6"/>
-  <ellipse class="pt3" cx="24" cy="34" rx="11" ry="4" fill="#D98EA4" opacity=".5"/></svg>
+  <ellipse cx="24" cy="12" rx="15" ry="6" fill="var(--burgundy)"/>
+  <ellipse class="pt1" cx="24" cy="23" rx="11" ry="4" fill="var(--rose)" opacity=".6"/>
+  <ellipse class="pt3" cx="24" cy="34" rx="11" ry="4" fill="var(--brass)" opacity=".5"/></svg>
         <span class="nm">SQL</span>
         <span class="sub">querying &middot; joins</span>
         <span class="learning">Learning</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Notebook cell with a run button and output">
-  <rect x="4" y="6" width="40" height="36" rx="4" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <rect x="8" y="10" width="32" height="12" rx="2" fill="none" stroke="#33181F" stroke-width="1.3"/>
-  <path class="pt1" d="M12 13 L18 16 L12 19 Z" fill="#C2566E"/>
-  <g stroke="#C2566E" stroke-width="1.6" stroke-linecap="round">
+  <rect x="4" y="6" width="40" height="36" rx="4" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <rect x="8" y="10" width="32" height="12" rx="2" fill="none" stroke="var(--line)" stroke-width="1.3"/>
+  <path class="pt1" d="M12 13 L18 16 L12 19 Z" fill="var(--rose)"/>
+  <g stroke="var(--rose)" stroke-width="1.6" stroke-linecap="round">
     <path class="tl1" d="M22 16 H36" style="transform-origin:22px 16px"/>
   </g>
-  <g stroke="#D98EA4" stroke-width="1.6" stroke-linecap="round">
+  <g stroke="var(--brass)" stroke-width="1.6" stroke-linecap="round">
     <path class="tl2" d="M9 28 H33" style="transform-origin:9px 28px"/>
     <path class="tl3" d="M9 34 H27" style="transform-origin:9px 34px"/>
   </g></svg>
@@ -854,12 +898,12 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Commit graph with a branch">
-  <path d="M14 40 V14" stroke="#33181F" stroke-width="2" stroke-linecap="round"/>
-  <path class="fit-line" d="M14 26 q12 0 12 -10 V10" stroke="#C2566E" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <circle class="pt1" cx="14" cy="38" r="3.4" fill="#C2566E"/>
-  <circle class="pt2" cx="14" cy="26" r="3.4" fill="#C2566E"/>
-  <circle class="pt3" cx="14" cy="14" r="3.4" fill="#C2566E"/>
-  <circle class="pt4" cx="26" cy="10" r="3.4" fill="#D98EA4"/></svg>
+  <path d="M14 40 V14" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+  <path class="fit-line" d="M14 26 q12 0 12 -10 V10" stroke="var(--rose)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle class="pt1" cx="14" cy="38" r="3.4" fill="var(--rose)"/>
+  <circle class="pt2" cx="14" cy="26" r="3.4" fill="var(--rose)"/>
+  <circle class="pt3" cx="14" cy="14" r="3.4" fill="var(--rose)"/>
+  <circle class="pt4" cx="26" cy="10" r="3.4" fill="var(--brass)"/></svg>
         <span class="nm">GitHub</span>
         <span class="sub">version control &middot; publishing</span>
       </div>
@@ -870,60 +914,60 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div class="toolgrid">
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A paper being searched with a magnifying glass">
-  <rect x="9" y="5" width="26" height="34" rx="2" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <g stroke="#D98EA4" stroke-width="1.5" stroke-linecap="round">
+  <rect x="9" y="5" width="26" height="34" rx="2" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <g stroke="var(--brass)" stroke-width="1.5" stroke-linecap="round">
     <path class="tl1" d="M14 12 H30" style="transform-origin:14px 12px"/>
     <path class="tl2" d="M14 18 H27" style="transform-origin:14px 18px"/>
     <path class="tl3" d="M14 24 H30" style="transform-origin:14px 24px"/>
   </g>
   <g class="lens" style="transform-origin:center">
-    <circle cx="20" cy="30" r="8" fill="#C2566E" fill-opacity=".15" stroke="#C2566E" stroke-width="2"/>
-    <path d="M26 36 L32 42" stroke="#C2566E" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="20" cy="30" r="8" fill="var(--rose)" fill-opacity=".15" stroke="var(--rose)" stroke-width="2"/>
+    <path d="M26 36 L32 42" stroke="var(--rose)" stroke-width="2.4" stroke-linecap="round"/>
   </g></svg>
         <span class="nm">Google Scholar</span>
         <span class="sub">finding papers</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A citation network of linked papers">
-  <g stroke="#33181F" stroke-width="1.4">
+  <g stroke="var(--line)" stroke-width="1.4">
     <path d="M24 24 L10 12"/><path d="M24 24 L38 12"/>
     <path d="M24 24 L9 32"/><path d="M24 24 L39 32"/><path d="M24 24 L24 42"/>
   </g>
-  <circle cx="24" cy="24" r="6" fill="#6E1430" stroke="#C2566E" stroke-width="2"/>
-  <circle class="pt1" cx="10" cy="12" r="3.2" fill="#C2566E"/>
-  <circle class="pt2" cx="38" cy="12" r="3.2" fill="#C2566E"/>
-  <circle class="pt3" cx="9"  cy="32" r="3.2" fill="#D98EA4"/>
-  <circle class="pt4" cx="39" cy="32" r="3.2" fill="#D98EA4"/>
-  <circle class="pt5" cx="24" cy="42" r="3.2" fill="#C2566E"/></svg>
+  <circle cx="24" cy="24" r="6" fill="var(--burgundy)" stroke="var(--rose)" stroke-width="2"/>
+  <circle class="pt1" cx="10" cy="12" r="3.2" fill="var(--rose)"/>
+  <circle class="pt2" cx="38" cy="12" r="3.2" fill="var(--rose)"/>
+  <circle class="pt3" cx="9"  cy="32" r="3.2" fill="var(--brass)"/>
+  <circle class="pt4" cx="39" cy="32" r="3.2" fill="var(--brass)"/>
+  <circle class="pt5" cx="24" cy="42" r="3.2" fill="var(--rose)"/></svg>
         <span class="nm">Scopus</span>
         <span class="sub">indexed search &middot; citations</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A stack of reference cards with a bookmark">
-  <rect x="7" y="14" width="34" height="26" rx="3" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <path d="M11 11 H37" stroke="#33181F" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M14 8 H34" stroke="#33181F" stroke-width="1.6" stroke-linecap="round"/>
-  <g stroke="#D98EA4" stroke-width="1.5" stroke-linecap="round">
+  <rect x="7" y="14" width="34" height="26" rx="3" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <path d="M11 11 H37" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M14 8 H34" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round"/>
+  <g stroke="var(--brass)" stroke-width="1.5" stroke-linecap="round">
     <path class="tl1" d="M13 22 H29" style="transform-origin:13px 22px"/>
     <path class="tl2" d="M13 28 H25" style="transform-origin:13px 28px"/>
     <path class="tl3" d="M13 34 H31" style="transform-origin:13px 34px"/>
   </g>
-  <path class="pt1" d="M33 14 H38 V27 L35.5 24 L33 27 Z" fill="#C2566E"/></svg>
+  <path class="pt1" d="M33 14 H38 V27 L35.5 24 L33 27 Z" fill="var(--rose)"/></svg>
         <span class="nm">Mendeley</span>
         <span class="sub">reference library</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="Two documents compared with matching passages highlighted">
-  <rect x="5" y="7" width="17" height="34" rx="2" fill="#140A0E" stroke="#33181F" stroke-width="1.5"/>
-  <rect x="26" y="7" width="17" height="34" rx="2" fill="#140A0E" stroke="#33181F" stroke-width="1.5"/>
-  <g stroke="#33181F" stroke-width="1.3" stroke-linecap="round">
+  <rect x="5" y="7" width="17" height="34" rx="2" fill="var(--ink)" stroke="var(--line)" stroke-width="1.5"/>
+  <rect x="26" y="7" width="17" height="34" rx="2" fill="var(--ink)" stroke="var(--line)" stroke-width="1.5"/>
+  <g stroke="var(--line)" stroke-width="1.3" stroke-linecap="round">
     <path d="M8 14 H19"/><path d="M8 26 H19"/><path d="M8 32 H17"/>
     <path d="M29 14 H40"/><path d="M29 26 H40"/><path d="M29 32 H38"/>
   </g>
-  <rect class="pt1" x="8"  y="18" width="11" height="4" rx="1" fill="#C2566E"/>
-  <rect class="pt1" x="29" y="18" width="11" height="4" rx="1" fill="#C2566E"/>
-  <rect class="pt3" x="8"  y="36" width="7"  height="4" rx="1" fill="#D98EA4"/>
-  <rect class="pt3" x="29" y="36" width="7"  height="4" rx="1" fill="#D98EA4"/></svg>
+  <rect class="pt1" x="8"  y="18" width="11" height="4" rx="1" fill="var(--rose)"/>
+  <rect class="pt1" x="29" y="18" width="11" height="4" rx="1" fill="var(--rose)"/>
+  <rect class="pt3" x="8"  y="36" width="7"  height="4" rx="1" fill="var(--brass)"/>
+  <rect class="pt3" x="29" y="36" width="7"  height="4" rx="1" fill="var(--brass)"/></svg>
         <span class="nm">Turnitin</span>
         <span class="sub">similarity checking</span>
       </div>
@@ -934,41 +978,41 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div class="toolgrid">
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A page of text with a blinking cursor">
-  <rect x="9" y="4" width="30" height="40" rx="2" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <g stroke="#C2566E" stroke-width="1.6" stroke-linecap="round">
+  <rect x="9" y="4" width="30" height="40" rx="2" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <g stroke="var(--rose)" stroke-width="1.6" stroke-linecap="round">
     <path class="tl1" d="M14 13 H34" style="transform-origin:14px 13px"/>
     <path class="tl2" d="M14 20 H30" style="transform-origin:14px 20px"/>
     <path class="tl3" d="M14 27 H33" style="transform-origin:14px 27px"/>
   </g>
-  <path d="M14 34 H26" stroke="#33181F" stroke-width="1.6" stroke-linecap="round"/>
-  <rect class="screen-caret" x="28" y="31" width="2.2" height="6" rx="1" fill="#D98EA4"/></svg>
+  <path d="M14 34 H26" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round"/>
+  <rect class="screen-caret" x="28" y="31" width="2.2" height="6" rx="1" fill="var(--brass)"/></svg>
         <span class="nm">MS Word</span>
         <span class="sub">manuscripts &middot; reports</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A slide with a title bar and a bar chart">
-  <rect x="4" y="8" width="40" height="28" rx="3" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <rect x="4" y="8" width="40" height="6" rx="3" fill="#6E1430"/>
-  <g fill="#C2566E">
+  <rect x="4" y="8" width="40" height="28" rx="3" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <rect x="4" y="8" width="40" height="6" rx="3" fill="var(--burgundy)"/>
+  <g fill="var(--rose)">
     <rect class="tl1" x="11" y="26" width="5" height="7" style="transform-origin:11px 33px"/>
     <rect class="tl2" x="20" y="22" width="5" height="11" style="transform-origin:20px 33px"/>
     <rect class="tl3" x="29" y="18" width="5" height="15" style="transform-origin:29px 33px"/>
   </g>
-  <path d="M18 40 H30" stroke="#33181F" stroke-width="2" stroke-linecap="round"/>
-  <path d="M24 36 V40" stroke="#33181F" stroke-width="2"/></svg>
+  <path d="M18 40 H30" stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 36 V40" stroke="var(--line)" stroke-width="2"/></svg>
         <span class="nm">PowerPoint</span>
         <span class="sub">conference slides</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A cloud with an upload arrow">
   <path d="M15 34 a8 8 0 0 1 0.6 -16 a10 10 0 0 1 19 2 a7 7 0 0 1 -1.6 14 Z"
-        fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
+        fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
   <g class="pt1">
-    <path d="M24 36 V20" stroke="#C2566E" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M18 26 L24 20 L30 26" stroke="#C2566E" stroke-width="2.4" fill="none"
+    <path d="M24 36 V20" stroke="var(--rose)" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M18 26 L24 20 L30 26" stroke="var(--rose)" stroke-width="2.4" fill="none"
           stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <path d="M15 40 H33" stroke="#D98EA4" stroke-width="2" stroke-linecap="round"/></svg>
+  <path d="M15 40 H33" stroke="var(--brass)" stroke-width="2" stroke-linecap="round"/></svg>
         <span class="nm">Google Drive</span>
         <span class="sub">storage &middot; collaboration</span>
       </div>
@@ -979,15 +1023,15 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div class="toolgrid">
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A search box with a cited answer beneath it">
-  <rect x="5" y="8" width="38" height="11" rx="5.5" fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <circle cx="13" cy="13.5" r="3.4" fill="none" stroke="#C2566E" stroke-width="1.8"/>
-  <path d="M15.6 16 L18 18.4" stroke="#C2566E" stroke-width="1.8" stroke-linecap="round"/>
-  <rect class="screen-caret" x="22" y="11" width="2" height="6" rx="1" fill="#D98EA4"/>
-  <g stroke="#D98EA4" stroke-width="1.6" stroke-linecap="round">
+  <rect x="5" y="8" width="38" height="11" rx="5.5" fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <circle cx="13" cy="13.5" r="3.4" fill="none" stroke="var(--rose)" stroke-width="1.8"/>
+  <path d="M15.6 16 L18 18.4" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"/>
+  <rect class="screen-caret" x="22" y="11" width="2" height="6" rx="1" fill="var(--brass)"/>
+  <g stroke="var(--brass)" stroke-width="1.6" stroke-linecap="round">
     <path class="tl1" d="M7 27 H35" style="transform-origin:7px 27px"/>
     <path class="tl2" d="M7 34 H29" style="transform-origin:7px 34px"/>
   </g>
-  <g fill="#C2566E">
+  <g fill="var(--rose)">
     <rect class="pt1" x="37" y="24" width="6" height="6" rx="1.5"/>
     <rect class="pt4" x="31" y="31" width="6" height="6" rx="1.5"/>
   </g></svg>
@@ -997,25 +1041,25 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A speech bubble with typing dots">
   <path d="M7 11 a4 4 0 0 1 4 -4 h26 a4 4 0 0 1 4 4 v18 a4 4 0 0 1 -4 4 H21 l-8 7 v-7 h-2 a4 4 0 0 1 -4 -4 Z"
-        fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <circle class="pt1" cx="17" cy="20" r="3" fill="#C2566E"/>
-  <circle class="pt3" cx="24" cy="20" r="3" fill="#C2566E"/>
-  <circle class="pt5" cx="31" cy="20" r="3" fill="#C2566E"/></svg>
+        fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <circle class="pt1" cx="17" cy="20" r="3" fill="var(--rose)"/>
+  <circle class="pt3" cx="24" cy="20" r="3" fill="var(--rose)"/>
+  <circle class="pt5" cx="31" cy="20" r="3" fill="var(--rose)"/></svg>
         <span class="nm">ChatGPT</span>
         <span class="sub">drafting &middot; explanation</span>
       </div>
       <div class="titem">
         <svg viewBox="0 0 48 48" role="img" aria-label="A speech bubble of written text with a pen">
   <path d="M6 12 a4 4 0 0 1 4 -4 h24 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 H19 l-7 6 v-6 h-2 a4 4 0 0 1 -4 -4 Z"
-        fill="#140A0E" stroke="#33181F" stroke-width="1.6"/>
-  <g stroke="#C2566E" stroke-width="1.7" stroke-linecap="round">
+        fill="var(--ink)" stroke="var(--line)" stroke-width="1.6"/>
+  <g stroke="var(--rose)" stroke-width="1.7" stroke-linecap="round">
     <path class="tl1" d="M11 16 H31" style="transform-origin:11px 16px"/>
     <path class="tl2" d="M11 22 H26" style="transform-origin:11px 22px"/>
     <path class="tl3" d="M11 28 H29" style="transform-origin:11px 28px"/>
   </g>
   <g transform="rotate(38 36 36)">
-    <rect x="34" y="26" width="4.5" height="14" rx="1.6" fill="#D98EA4"/>
-    <path d="M34 40 L36.25 44 L38.5 40 Z" fill="#C2566E"/>
+    <rect x="34" y="26" width="4.5" height="14" rx="1.6" fill="var(--brass)"/>
+    <path d="M34 40 L36.25 44 L38.5 40 Z" fill="var(--rose)"/>
   </g></svg>
         <span class="nm">Claude</span>
         <span class="sub">analysis &middot; code support</span>
@@ -1096,6 +1140,16 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, plates = [];
     var mx = -9999, my = -9999;
+    var ACCENT = [92, 146, 206];
+    function readAccent(){
+      try{
+        var v = getComputedStyle(document.documentElement).getPropertyValue('--rose').trim();
+        var m = /^#?([0-9a-fA-F]{6})$/.exec(v);
+        if(m){ var n = parseInt(m[1], 16); ACCENT = [(n>>16)&255, (n>>8)&255, n&255]; }
+      }catch(e){}
+    }
+    readAccent();
+    window.__readAccent = readAccent;
 
     // --- the floating kit: drawn in a unit box, scaled per item ---
     function laptop(c){
@@ -1199,7 +1253,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
         ctx.rotate(p.a);
         ctx.scale(p.s, p.s);
         ctx.lineWidth = 1.5 / p.s;
-        ctx.strokeStyle = 'rgba(194,86,110,' + p.al.toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(' + ACCENT[0] + ',' + ACCENT[1] + ',' + ACCENT[2] + ',' + p.al.toFixed(3) + ')';
         SHAPES[p.k](ctx);
         ctx.restore();
       }
@@ -1262,6 +1316,29 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   }
   wire('projToggle', 'moreProjects');
   wire('paperToggle', 'morePapers');
+
+  // light / dark toggle
+  var tbtn = document.getElementById('themeToggle');
+  if(tbtn){
+    var root = document.documentElement;
+    function effective(){
+      var a = root.getAttribute('data-theme');
+      if(a) return a;
+      try{ return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+      catch(e){ return 'dark'; }
+    }
+    try{
+      var saved = localStorage.getItem('theme');
+      if(saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+    }catch(e){}
+    if(window.__readAccent) window.__readAccent();
+    tbtn.addEventListener('click', function(){
+      var next = effective() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try{ localStorage.setItem('theme', next); }catch(e){}
+      if(window.__readAccent) window.__readAccent();
+    });
+  }
 
   // contact form
   var form = document.getElementById('contactForm');
