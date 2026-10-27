@@ -375,6 +375,37 @@ p{margin:0}
 .bookinfo a.doi:hover{border-color:var(--rose)}
 .bookinfo .doi.nolink{color:var(--muted); border-bottom-style:dashed}
 
+/* ---------- journey ---------- */
+.timeline{position:relative; padding-top:4px}
+.timeline::before{
+  content:""; position:absolute; left:7px; top:12px; bottom:12px; width:2px;
+  background:linear-gradient(var(--rose), var(--burgundy)); border-radius:2px;
+}
+.tl-item{position:relative; padding:0 0 30px 36px; min-width:0}
+.tl-item:last-child{padding-bottom:0}
+.tl-node{
+  position:absolute; left:0; top:3px; width:16px; height:16px; border-radius:50%;
+  border:2px solid var(--rose); background:var(--black);
+}
+.tl-item:last-child .tl-node{background:var(--rose)}
+@keyframes nodePulse{
+  0%,100%{box-shadow:0 0 0 0 var(--burgundy)}
+  55%{box-shadow:0 0 0 7px transparent}
+}
+@media(prefers-reduced-motion:no-preference){
+  .tl-item:last-child .tl-node{animation:nodePulse 2.6s ease-out infinite}
+}
+.tl-year{
+  font-family:var(--font-mono); font-size:.71rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--brass); display:flex; flex-wrap:wrap;
+  gap:9px; align-items:center; margin-bottom:6px;
+}
+.tl-now{
+  font-size:.56rem; letter-spacing:.14em; color:var(--rose);
+  border:1px solid var(--burgundy); border-radius:2px; padding:2px 7px;
+}
+.tl-what{font-size:1rem; line-height:1.62; color:var(--cream); max-width:56ch}
+
 /* ---------- top nav ---------- */
 body::before{
   content:""; position:fixed; inset:0 0 auto; z-index:21;
@@ -382,6 +413,7 @@ body::before{
 }
 .topnav{
   position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  isolation:isolate;
   background:var(--black); border-bottom:1px solid var(--line);
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
 }
@@ -400,7 +432,50 @@ body::before{
 }
 .brand:hover{border-color:var(--rose); color:var(--rose)}
 .nav-right{display:flex; align-items:center; gap:8px; margin-left:auto}
-.menubtn,.themebtn svg{width:17px; height:17px; display:block}
+.menubtn,.themebtn{
+  flex:none; cursor:pointer; background:transparent;
+  border:1px solid var(--line); border-radius:3px; padding:7px 8px;
+  color:var(--muted); line-height:0;
+  transition:color .2s ease, border-color .2s ease;
+}
+.menubtn:hover,.themebtn:hover{color:var(--rose); border-color:var(--rose)}
+.menubtn:focus-visible,.themebtn:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
+.themebtn svg{width:17px; height:17px; display:block}
+.bars{display:block; width:17px; height:13px; position:relative}
+.bars i{
+  position:absolute; left:0; right:0; height:1.8px; border-radius:2px;
+  background:currentColor; transition:transform .22s ease, opacity .18s ease;
+}
+.bars i:nth-child(1){top:0}
+.bars i:nth-child(2){top:5.6px}
+.bars i:nth-child(3){top:11.2px}
+.menubtn[aria-expanded="true"]{color:var(--rose); border-color:var(--rose)}
+.menubtn[aria-expanded="true"] .bars i:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+.menubtn[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+.menubtn[aria-expanded="true"] .bars i:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+.nav-panel{
+  display:flex; justify-content:flex-end;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 12px;
+}
+@media(prefers-reduced-motion:no-preference){
+  .nav-panel{animation:menuIn .18s cubic-bezier(.2,.7,.3,1)}
+}
+@keyframes menuIn{from{opacity:0; transform:translateY(-6px)}}
+.nav-panel-inner{
+  display:flex; flex-direction:column; padding:4px 0;
+  width:208px; max-width:100%;
+  background:var(--ink); border:1px solid var(--line-bright); border-radius:3px;
+}
+.nav-panel a{
+  font-family:var(--font-mono); font-size:.72rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); text-decoration:none;
+  padding:12px 16px; border-bottom:1px solid var(--line);
+  transition:color .2s ease, background .2s ease;
+}
+.nav-panel a:last-child{border-bottom:0}
+.nav-panel a:hover{color:var(--rose); background:var(--surface)}
 .ico-sun{display:block}
 .ico-moon{display:none}
 @media(prefers-color-scheme:light){
@@ -569,6 +644,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   <div class="nav-panel" id="navPanel" hidden>
     <div class="nav-panel-inner">
       <a href="#about">About</a>
+      <a href="#journey">Journey</a>
       <a href="#work">Work</a>
       <a href="#research">Research</a>
       <a href="#shelf">Shelf</a>
@@ -621,8 +697,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   <section class="stack" id="about">
     <h2>About me</h2>
     <div class="about-body">
-      <p>I am a petroleum engineer and PhD researcher working on drilling fluids at Afe Babalola
-      University, Ado-Ekiti.</p>
+      <p>I am a petroleum engineer and PhD researcher working on drilling fluids.</p>
       <p>My research sits on one question: can water-based mud, built from materials Nigeria already
       has, do the work that imported additives and oil-based systems do now? That means testing
       <b>biodegradable additives</b> such as cassava starch, gum arabic and plantain peel against
@@ -640,6 +715,34 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       data into something a drilling engineer can act on.</p>
     </div>
   </section>
+  <section class="stack" id="journey">
+    <h2>Journey</h2>
+    <div class="timeline">
+      <article class="tl-item">
+        <span class="tl-node"></span>
+        <span class="tl-year">2014 to 2019</span>
+        <p class="tl-what">Undergraduate study. Petroleum engineering coursework, assignments and
+        degree research, with data compiled in Excel as charts and plots.</p>
+      </article>
+      <article class="tl-item">
+        <span class="tl-node"></span>
+        <span class="tl-year">2021 to 2023</span>
+        <p class="tl-what">Master&rsquo;s research. Literature work in Mendeley, Google Scholar and
+        Scopus, extensive laboratory work, and published research papers.</p>
+      </article>
+      <article class="tl-item">
+        <span class="tl-node"></span>
+        <span class="tl-year">2024 to 2026</span>
+        <p class="tl-what">Data analytics.</p>
+      </article>
+      <article class="tl-item">
+        <span class="tl-node"></span>
+        <span class="tl-year">2026 to present <span class="tl-now">Now</span></span>
+        <p class="tl-what">Machine learning and AI.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="stack">
     <h2>Research focus</h2>
     <div class="focus">
@@ -1175,8 +1278,11 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   <section class="stack" id="contact">
     <div class="sec-head">
       <div class="sec-head-copy">
-        <h2>Contact</h2>
-        <p class="muted" style="font-size:.94rem; max-width:56ch">Reach me by email or on LinkedIn.</p>
+        <h2>Contact me</h2>
+        <p class="muted" style="font-size:.97rem; max-width:52ch">I am currently exploring
+        opportunities in oil and gas, drilling and machine learning, and always open to connecting
+        with like-minded professionals. If you have a role, project or collaboration in mind, I
+        would love to hear from you.</p>
       </div>
       <div class="vignette">
         <div class="vig-frame"><img src="scene-field.png" alt="Sylvia on location in coveralls and a hard hat with a clipboard"></div>
