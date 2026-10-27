@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Sylvia Igbafe — petroleum engineer and PhD researcher. Water-based mud, biodegradable drilling additives, and machine learning applied to drilling fluid data.">
+<meta name="description" content="Sylvia Igbafe, petroleum engineer and PhD researcher. Water-based mud, biodegradable drilling additives, and machine learning applied to drilling fluid data.">
 <meta name="author" content="Sylvia Igbafe">
 <meta property="og:title" content="Sylvia Igbafe">
-<meta property="og:description" content="Petroleum engineer and PhD researcher — water-based mud and biodegradable drilling additives.">
+<meta property="og:description" content="Petroleum engineer and PhD researcher. Water-based mud and biodegradable drilling additives.">
 <meta property="og:type" content="website">
 <style>
 *{box-sizing:border-box}
@@ -19,7 +19,7 @@ img{max-width:100%}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700;6..96,900&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
 <style>
-/* Layout: one centred column over a live canvas of suspended clay platelets that shear away from the cursor. A fixed depth gauge on the right reads scroll position as metres of hole. Committed single dark theme — burgundy on black, as asked. */
+/* Layout: one centred column over a live canvas of suspended clay platelets that shear away from the cursor. A fixed depth gauge on the right reads scroll position as metres of hole. Committed single dark theme, burgundy on black, as asked. */
 :root{
   --black:#0D110F;
   --ink:#172B35;
@@ -325,6 +325,56 @@ p{margin:0}
 }
 .practice .k{font-family:var(--font-mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass); margin-right:4px}
 
+/* ---------- shelf ---------- */
+.books{display:flex; flex-direction:column; gap:16px}
+.bookrow{
+  display:grid; gap:18px; min-width:0;
+  background:var(--ink); border:1px solid var(--line); padding:18px;
+  transition:border-color .25s ease, background .25s ease;
+}
+.bookrow:hover{border-color:var(--line-bright); background:var(--surface)}
+@media(min-width:660px){.bookrow{grid-template-columns:188px 1fr; gap:22px; align-items:start}}
+.bookface{
+  position:relative; min-width:0; aspect-ratio:1/1.38;
+  border:1px solid var(--line-bright); border-radius:2px;
+  padding:18px 15px 14px; overflow:hidden;
+  display:flex; flex-direction:column; gap:7px;
+  background:var(--burgundy); color:var(--cream);
+  box-shadow:inset 3px 0 0 -1px var(--rose), 0 8px 20px -14px var(--black);
+}
+.bookface.bf2{background:var(--surface)}
+.bookface.bf3{background:var(--black)}
+.bf-band{display:block; width:34px; height:2.4px; background:var(--rose); flex:none}
+.bf-title{
+  font-family:var(--font-display); font-weight:700;
+  font-size:.95rem; line-height:1.18; letter-spacing:-.01em; text-wrap:balance;
+}
+.bf-sub{font-family:var(--font-body); font-size:.64rem; line-height:1.4; color:var(--rose-bright)}
+.bf-by{
+  font-family:var(--font-body); font-size:.62rem; line-height:1.4;
+  margin-top:auto; opacity:.9;
+}
+.bf-pub{
+  font-family:var(--font-mono); font-size:.5rem; letter-spacing:.12em;
+  text-transform:uppercase; opacity:.7;
+}
+.bookinfo{min-width:0; display:flex; flex-direction:column; gap:10px}
+.bookinfo .pub{
+  font-family:var(--font-mono); font-size:.65rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--brass);
+}
+.bookinfo .note{
+  font-size:.91rem; line-height:1.68; color:var(--cream);
+  border-left:2px solid var(--rose); padding:2px 0 2px 14px;
+}
+.bookinfo .doi{
+  font-family:var(--font-mono); font-size:.72rem; color:var(--rose);
+  text-decoration:none; word-break:break-word; align-self:flex-start;
+  border-bottom:1px solid var(--burgundy); padding-bottom:1px;
+}
+.bookinfo a.doi:hover{border-color:var(--rose)}
+.bookinfo .doi.nolink{color:var(--muted); border-bottom-style:dashed}
+
 /* ---------- top nav ---------- */
 body::before{
   content:""; position:fixed; inset:0 0 auto; z-index:21;
@@ -349,23 +399,8 @@ body::before{
   padding:3px 9px; line-height:1.2; flex:none;
 }
 .brand:hover{border-color:var(--rose); color:var(--rose)}
-.nav-links{display:flex; flex-wrap:wrap; gap:4px 18px; margin-left:auto}
-.nav-links a{
-  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.17em;
-  text-transform:uppercase; color:var(--muted); text-decoration:none;
-  padding:4px 0; border-bottom:1px solid transparent;
-  transition:color .2s ease, border-color .2s ease;
-}
-.nav-links a:hover{color:var(--rose); border-color:var(--rose)}
-.themebtn{
-  flex:none; cursor:pointer; background:transparent;
-  border:1px solid var(--line); border-radius:3px; padding:5px 7px;
-  color:var(--muted); line-height:0;
-  transition:color .2s ease, border-color .2s ease;
-}
-.themebtn:hover{color:var(--rose); border-color:var(--rose)}
-.themebtn:focus-visible{outline:2px solid var(--rose); outline-offset:2px}
-.themebtn svg{width:17px; height:17px; display:block}
+.nav-right{display:flex; align-items:center; gap:8px; margin-left:auto}
+.menubtn,.themebtn svg{width:17px; height:17px; display:block}
 .ico-sun{display:block}
 .ico-moon{display:none}
 @media(prefers-color-scheme:light){
@@ -513,24 +548,33 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 <nav class="topnav">
   <div class="nav-inner">
     <a class="brand" href="#top">SI</a>
-    <div class="nav-links">
+    <div class="nav-right">
+      <button class="menubtn" type="button" id="menuBtn" aria-expanded="false"
+              aria-controls="navPanel" aria-label="Open the menu">
+        <span class="bars"><i></i><i></i><i></i></span>
+      </button>
+      <button class="themebtn" type="button" id="themeToggle" aria-label="Switch between light and dark">
+        <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.4"/>
+          <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>
+        </svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7.2 7.2 0 1 0 10.5 10.5Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="nav-panel" id="navPanel" hidden>
+    <div class="nav-panel-inner">
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="#research">Research</a>
+      <a href="#shelf">Shelf</a>
       <a href="#tools">Tools</a>
       <a href="#contact">Contact</a>
     </div>
-    <button class="themebtn" type="button" id="themeToggle" aria-label="Switch between light and dark">
-      <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none"
-           stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4.4"/>
-        <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>
-      </svg>
-      <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
-           stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7.2 7.2 0 1 0 10.5 10.5Z"/>
-      </svg>
-    </button>
   </div>
 </nav>
 
@@ -581,14 +625,14 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       University, Ado-Ekiti.</p>
       <p>My research sits on one question: can water-based mud, built from materials Nigeria already
       has, do the work that imported additives and oil-based systems do now? That means testing
-      <b>biodegradable additives</b> &mdash; cassava starch, gum arabic, plantain peel &mdash; against
+      <b>biodegradable additives</b> such as cassava starch, gum arabic and plantain peel against
       conventional CMC, PAC and xanthan gum on the same rheology and fluid-loss tests, and asking
       whether local bentonite can be treated to meet <b>API&nbsp;13A</b>.</p>
       <p>I have six published papers across drilling fluids, corrosion inhibition and green hydrogen,
       and I led the two drilling-fluid studies: spear grass as a fluid-loss additive in
       salt-contaminated water-based mud, and a bio-lubricant from African star apple seed oil as a
       diesel replacement in oil-based mud.</p>
-      <p>I am now learning to apply <b>machine learning</b> to that work &mdash; building datasets
+      <p>I am now learning to apply <b>machine learning</b> to that work by building datasets
       from published literature, then modelling rheology and degradation instead of reading them off
       one experiment at a time. The projects below are that effort, and the status on each one is
       current rather than aspirational.</p>
@@ -760,7 +804,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       </article>
 
       <article class="paper featured">
-        <span class="meta">IOSR Journal of Biotechnology and Biochemistry &middot; 6(2), 27&ndash;32, 2020 &middot; First author</span>
+        <span class="meta">IOSR Journal of Biotechnology and Biochemistry &middot; 6(2), pages 27 to 32, 2020 &middot; First author</span>
         <h3>Production and Characterization of <i>Chrysophyllum albidum</i> Seed Oil Derived Bio-lubricant for the Formulation of Oil-Based Drilling Mud</h3>
         <p class="authors"><b>S. Igbafe</b>, A. A. Azuokwu, A. I. Igbafe</p>
         <p class="abstract">A polyol-ester bio-lubricant was synthesised from African star apple (<i>Chrysophyllum albidum</i>) seed oil as a replacement for diesel in the continuous phase of oil-based mud. Density, viscosity, pour point and flash point met ASTM standards and compared favourably with diesel, with lower toxicity and better biodegradability.</p>
@@ -770,25 +814,25 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <div id="morePapers" hidden>
 
         <article class="paper">
-          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(3), 134&ndash;147, 2025</span>
+          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(3), pages 134 to 147, 2025</span>
           <h3>Synthesis and Application of Starch-Modified Chitosan-Silver Nanoparticle Composite as Green Corrosion Inhibitor for Mild Steel in Acidic Media</h3>
           <p class="authors">Anthonia Fidamilare Fidudusola, <b>Sylvia Igbafe</b>, Anselm Iuebego Igbafe</p>
           <p class="abstract">A green corrosion inhibitor was built from waste cassava peel starch, chitosan from snail shells and green-synthesised silver nanoparticles, then tested on mild steel in dilute hydrochloric acid. The composite reached up to 97&nbsp;% inhibition efficiency by forming a protective film, the nanoparticles improving stability and the biopolymers keeping it non-toxic.</p>
           <a class="doi" href="https://doi.org/10.53982/ajerd" target="_blank" rel="noopener">doi.org/10.53982/ajerd</a>
-          <p class="note">Journal-level DOI &mdash; the article DOI is not printed on the paper.</p>
+          <p class="note">Journal-level DOI. The article DOI is not printed on the paper.</p>
         </article>
 
         <article class="paper">
-          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(1), 315&ndash;323, 2025</span>
+          <span class="meta">ABUAD Journal of Engineering Research and Development &middot; 8(1), pages 315 to 323, 2025</span>
           <h3>Semi Empirical Modelling of Alkaline Water Electrolysis Green Hydrogen Using Biosynthesized Lye and Caustic Soda Electrolytes</h3>
           <p class="authors">Anthony Owoicho Ijiga, <b>Sylvia Igbafe</b>, Akeem Aderibigbe Adebomehin, Anselm Iuebego Igbafe</p>
-          <p class="abstract">Semi-empirical models were fitted for cell voltage, Faraday efficiency and gas purity in alkaline water electrolysis, using lye from charred plantain peel and caustic soda from seawater at 25&ndash;35&nbsp;g/L and 45&ndash;85&nbsp;&deg;C. Most models fitted well, with R&sup2; between 0.96 and 0.999.</p>
+          <p class="abstract">Semi-empirical models were fitted for cell voltage, Faraday efficiency and gas purity in alkaline water electrolysis, using lye from charred plantain peel and caustic soda from seawater at 25 to 35&nbsp;g/L and 45 to 85&nbsp;&deg;C. Most models fitted well, with R&sup2; between 0.96 and 0.999.</p>
           <a class="doi" href="https://doi.org/10.53982/ajerd" target="_blank" rel="noopener">doi.org/10.53982/ajerd</a>
-          <p class="note">Journal-level DOI &mdash; the article DOI is not printed on the paper.</p>
+          <p class="note">Journal-level DOI. The article DOI is not printed on the paper.</p>
         </article>
 
         <article class="paper">
-          <span class="meta">Computational and Experimental Research in Materials and Renewable Energy &middot; 7(2), 105&ndash;118, 2024</span>
+          <span class="meta">Computational and Experimental Research in Materials and Renewable Energy &middot; 7(2), pages 105 to 118, 2024</span>
           <h3>Applications of Green Inhibitors of Sugarcane Bagasse and Garcinia Kola Fruit Pod for Mild Steel Natural Gas Pipeline Corrosion Inhibition in Acidic Medium</h3>
           <p class="authors">Teddy Ekimimosugha Jemine, <b>Sylvia Igbafe</b>, Adekunle Timisiriyu Adeniyi, Anselm Iuebego Igbafe</p>
           <p class="abstract">Ethanol extracts of sugarcane bagasse and garcinia kola fruit pod were tested as green corrosion inhibitors for mild steel gas pipeline in acid, using a central composite design across concentration, exposure time and temperature. Best efficiencies were 92&nbsp;% and 90&nbsp;% respectively, with garcinia kola the stronger inhibitor overall.</p>
@@ -796,7 +840,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
         </article>
 
         <article class="paper">
-          <span class="meta">TWIST &middot; 19(4), 5&ndash;13, 2024</span>
+          <span class="meta">TWIST &middot; 19(4), pages 5 to 13, 2024</span>
           <h3>Optimization of Green Hydrogen Production in Alkaline Water Electrolysis with Bio Synthesized Lye and Caustic Soda Electrolytes using Taguchi OA</h3>
           <p class="authors">Anthony Owoicho Ijiga, <b>Sylvia Igbafe</b>, Akeem Aderibigbe Adebomehin, Anselm Iuebego Igbafe</p>
           <p class="abstract">A Taguchi orthogonal array was used to find the conditions that maximise hydrogen volume in alkaline water electrolysis with plantain-peel lye and seawater-derived caustic soda. The optimum was 30&nbsp;g/L, 15 minutes, 85&nbsp;&deg;C and 7&nbsp;V for KOH, and 35&nbsp;g/L, 15 minutes, 45&nbsp;&deg;C and 7&nbsp;V for NaOH.</p>
@@ -808,6 +852,59 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 
     <div class="actions">
       <button class="more" type="button" id="paperToggle" aria-expanded="false" aria-controls="morePapers">See more</button>
+    </div>
+  </section>
+
+
+  <section class="stack" id="shelf">
+    <h2>On my shelf</h2>
+    <p class="muted" style="font-size:.94rem; max-width:56ch">What I am reading to put machine
+    learning to work on drilling data.</p>
+
+    <div class="books">
+      <article class="bookrow">
+        <div class="bookface bf1">
+          <span class="bf-band"></span>
+          <span class="bf-title">Applications of Artificial Intelligence (AI) and Machine Learning (ML) in the Petroleum Industry</span>
+          <span class="bf-by">Manan Shah, Ameya Kshirsagar<br>and Jainam Panchal</span>
+          <span class="bf-pub">CRC Press &middot; Taylor &amp; Francis</span>
+        </div>
+        <div class="bookinfo">
+          <span class="pub">CRC Press &middot; Taylor &amp; Francis</span>
+          <p class="note">Reports a machine learning approach for generating Poisson&rsquo;s ratio maps, used to determine rock and drilling direction features. Machine learning is applied to inspect the quality of large volumes of drilling data, extract the critical records and forecast downtime, reducing the time and cost of checking that data. The conclusion drawn is that machine learning can fundamentally alter the decisions oil and gas managers and engineers make.</p>
+          <a class="doi" href="https://www.routledge.com/Applications-of-Artificial-Intelligence-AI-and-Machine-Learning-ML-in-the-Petroleum-Industry/Shah-Kshirsagar-Panchal/p/book/9781032245881" target="_blank" rel="noopener">routledge.com &#8599;</a>
+        </div>
+      </article>
+
+      <article class="bookrow">
+        <div class="bookface bf2">
+          <span class="bf-band"></span>
+          <span class="bf-title">The Power of Artificial Intelligence for the Next-Generation Oil and Gas Industry</span>
+        <span class="bf-sub">Envisaging AI-inspired Intelligent Energy Systems and Environments</span>
+          <span class="bf-by">Pethuru Raj Chelliah, Venkatraman Jayasankar, Mats Agerstam,<br>B. Sundaravadivazhagan and Robin Cyriac</span>
+          <span class="bf-pub">IEEE Press &middot; Wiley</span>
+        </div>
+        <div class="bookinfo">
+          <span class="pub">IEEE Press &middot; Wiley</span>
+          <p class="note">Sets out proven machine learning and deep learning algorithms for anomaly detection, and argues that AI enabled analytics yield prescriptive insight as well as prediction. Automation, orchestration and optimisation are presented as the competencies that bring process excellence to oil and gas operations, and with it the adaptivity, adroitness and affordability of those systems and services.</p>
+          <span class="doi nolink">ISBN 978-1-119-98558-7</span>
+        </div>
+      </article>
+
+      <article class="bookrow">
+        <div class="bookface bf3">
+          <span class="bf-band"></span>
+          <span class="bf-title">Machine Learning Guide for Oil and Gas Using Python</span>
+        <span class="bf-sub">A Step-by-Step Breakdown with Data, Algorithms, Codes, and Applications</span>
+          <span class="bf-by">Hoss Belyadi and Alireza Haghighat</span>
+          <span class="bf-pub">Gulf Professional Publishing &middot; Elsevier</span>
+        </div>
+        <div class="bookinfo">
+          <span class="pub">Gulf Professional Publishing &middot; Elsevier</span>
+          <p class="note">Attributes the rise of machine learning in the energy industry to new technologies such as sensors and high performance computing services, among them Apache Hadoop and NoSQL, which make big data acquisition and storage practical across different fields of study. Big data is defined as a quantity too large to be gathered, stored and analysed with common tools, on the order of terabytes. The climbing publication count on OnePetro and with the AAPG is cited as evidence, with the expectation that adoption will widen as more companies see the value added.</p>
+          <a class="doi" href="https://shop.elsevier.com/books/machine-learning-guide-for-oil-and-gas-using-python/belyadi/978-0-12-821929-4" target="_blank" rel="noopener">shop.elsevier.com &#8599;</a>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -1316,6 +1413,30 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   }
   wire('projToggle', 'moreProjects');
   wire('paperToggle', 'morePapers');
+
+  // menu
+  var mbtn = document.getElementById('menuBtn');
+  var mpanel = document.getElementById('navPanel');
+  if(mbtn && mpanel){
+    function setMenu(open){
+      mpanel.hidden = !open;
+      mbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mbtn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+    }
+    mbtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      setMenu(mpanel.hidden);
+    });
+    Array.prototype.forEach.call(mpanel.querySelectorAll('a'), function(a){
+      a.addEventListener('click', function(){ setMenu(false); });
+    });
+    document.addEventListener('click', function(e){
+      if(!mpanel.hidden && !mpanel.contains(e.target) && e.target !== mbtn) setMenu(false);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && !mpanel.hidden){ setMenu(false); mbtn.focus(); }
+    });
+  }
 
   // light / dark toggle
   var tbtn = document.getElementById('themeToggle');
