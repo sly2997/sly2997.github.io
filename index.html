@@ -1,19 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Sylvia Igbafe, petroleum engineer and PhD researcher. Water-based mud, biodegradable drilling additives, and machine learning applied to drilling fluid data.">
-<meta name="author" content="Sylvia Igbafe">
-<meta property="og:title" content="Sylvia Igbafe">
-<meta property="og:description" content="Petroleum engineer and PhD researcher. Water-based mud and biodegradable drilling additives.">
-<meta property="og:type" content="website">
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-</style>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Igbafesylvia</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700;6..96,900&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -209,12 +194,11 @@ p{margin:0}
 
 /* ---------- focus ---------- */
 .focus{display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
-@media(min-width:780px){.focus{grid-template-columns:repeat(3,1fr)}}
-.focus > div{background:var(--ink); padding:24px 20px; min-width:0; transition:background .25s ease}
+@media(min-width:620px){.focus{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.focus{grid-template-columns:repeat(4,1fr)}}
+.focus > div{background:var(--ink); padding:22px 20px; min-width:0; display:flex; align-items:center; transition:background .25s ease}
 .focus > div:hover{background:var(--surface)}
-.focus .n{font-family:var(--font-mono); font-size:.69rem; color:var(--brass); letter-spacing:.14em; display:block; margin-bottom:12px}
-.focus h3{font-size:1.14rem; margin-bottom:9px; font-weight:500}
-.focus p{font-size:.94rem; color:var(--muted); line-height:1.6}
+.focus h3{font-size:1.08rem; font-weight:500; line-height:1.3}
 
 /* ---------- projects ---------- */
 .proj{
@@ -224,7 +208,14 @@ p{margin:0}
 }
 .proj + .proj{margin-top:12px}
 .proj:hover{border-color:var(--line-bright); background:var(--surface)}
-@media(min-width:720px){.proj{grid-template-columns:54px 1fr; align-items:start}}
+@media(min-width:720px){.proj{align-items:start}}
+.projphoto{
+  width:100%; height:auto; display:block; border:1px solid var(--line);
+  border-radius:3px; background:var(--black);
+  aspect-ratio:16/7; object-fit:cover; object-position:50% 58%;
+  filter:saturate(.92) contrast(1.04);
+}
+@media(max-width:620px){.projphoto{aspect-ratio:16/9}}
 .proj-id{
   font-family:var(--font-display); font-size:1.5rem; font-weight:700;
   color:var(--burgundy); line-height:1; padding-top:4px; transition:color .25s ease;
@@ -609,8 +600,7 @@ footer{
 a{color:var(--rose); text-underline-offset:3px}
 a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 </style>
-</head>
-<body>
+
 <canvas id="platelets" aria-hidden="true"></canvas>
 
 <div class="gauge" aria-hidden="true">
@@ -721,24 +711,22 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <article class="tl-item">
         <span class="tl-node"></span>
         <span class="tl-year">2014 to 2019</span>
-        <p class="tl-what">Undergraduate study. Petroleum engineering coursework, assignments and
-        degree research, with data compiled in Excel as charts and plots.</p>
+        <p class="tl-what">Petroleum engineering undergraduate study</p>
       </article>
       <article class="tl-item">
         <span class="tl-node"></span>
         <span class="tl-year">2021 to 2023</span>
-        <p class="tl-what">Master&rsquo;s research. Literature work in Mendeley, Google Scholar and
-        Scopus, extensive laboratory work, and published research papers.</p>
+        <p class="tl-what">Petroleum engineering master&rsquo;s research</p>
       </article>
       <article class="tl-item">
         <span class="tl-node"></span>
         <span class="tl-year">2024 to 2026</span>
-        <p class="tl-what">Data analytics.</p>
+        <p class="tl-what">Petroleum engineering data analytics</p>
       </article>
       <article class="tl-item">
         <span class="tl-node"></span>
         <span class="tl-year">2026 to present <span class="tl-now">Now</span></span>
-        <p class="tl-what">Machine learning and AI.</p>
+        <p class="tl-what">Petroleum engineering machine learning and AI</p>
       </article>
     </div>
   </section>
@@ -746,24 +734,10 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   <section class="stack">
     <h2>Research focus</h2>
     <div class="focus">
-      <div>
-        <span class="n">01</span>
-        <h3>Water-based mud formulation</h3>
-        <p>Beneficiation of Nigerian bentonite, rheological response to soda ash dose, and what it
-        takes to reach drilling-grade specification from local clay.</p>
-      </div>
-      <div>
-        <span class="n">02</span>
-        <h3>Biodegradable additives</h3>
-        <p>Cassava starch, gum arabic, plantain peel and similar farm-waste polymers, measured
-        against conventional CMC, PAC and xanthan gum on the same tests.</p>
-      </div>
-      <div>
-        <span class="n">03</span>
-        <h3>Niger Delta drilling problems</h3>
-        <p>Reactive shale instability, bit balling and lost circulation, and whether inhibited
-        water-based systems can displace oil-based mud in these formations.</p>
-      </div>
+      <div><h3>Water-based mud formulation</h3></div>
+      <div><h3>Biodegradable additives</h3></div>
+      <div><h3>Niger Delta drilling problems</h3></div>
+      <div><h3>Machine learning and AI</h3></div>
     </div>
   </section>
 
@@ -781,30 +755,27 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 
     <div>
       <article class="proj">
-        <div class="proj-id">P1</div>
         <div class="proj-main">
+          <img class="projphoto" src="lab-bench.jpg" width="1200" height="896" loading="lazy"
+               alt="Drilling fluid laboratory bench with filter presses, a mud balance set and a gas cylinder">
           <div class="proj-head">
             <h3>Nigerian water-based mud formulation database</h3>
-            <span class="chip live">In progress</span>
           </div>
-          <p class="q"><b>Question</b>Across published Nigerian beneficiation studies, which clay
-          deposits and which treatment levels actually meet API&nbsp;13A, and how close do they get
-          to imported reference bentonite?</p>
-          <p class="q"><b>Method</b>Rheology and fluid-loss results extracted by hand from 8 to 15
-          published studies into a condition-tagged dataset, then benchmarked against specification.
-          Every row carries its test temperature, aging condition and clay concentration, because
-          results measured under different protocols are not comparable.</p>
+          <p class="q">Beneficiation cuts fluid loss by up to 82&nbsp;% and still never reaches the
+          API limit of 15&nbsp;mL, though it does lift most treated samples past the viscosity
+          minimum. Only 12 of the 71 formulations were tested on both requirements, and the single
+          one passing both is imported bentonite. The database also caught two arithmetic defects in
+          the published tables, including a negative yield point.</p>
           <div class="tags">
             <span class="tag">Excel</span><span class="tag">pandas</span>
             <span class="tag">matplotlib</span><span class="tag">API 13A</span>
             <span class="tag">Literature extraction</span>
+            <span class="tag">Google Colab</span>
           </div>
-          <p class="sched">Started 24 Oct 2026 &middot; report due 15 Nov 2026</p>
         </div>
       </article>
 
       <article class="proj">
-        <div class="proj-id">P2</div>
         <div class="proj-main">
           <div class="proj-head">
             <h3>Biodegradable against conventional additives</h3>
@@ -825,7 +796,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 
       <div id="moreProjects" hidden>
         <article class="proj">
-          <div class="proj-id">P3</div>
           <div class="proj-main">
             <div class="proj-head">
               <h3>Thermal and aging stability of biodegradable additives</h3>
@@ -843,7 +813,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
         </article>
 
         <article class="proj">
-          <div class="proj-id">P4</div>
           <div class="proj-main">
             <div class="proj-head">
               <h3>Eco-friendly shale inhibition for reactive Niger Delta shales</h3>
@@ -860,7 +829,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
         </article>
 
         <article class="proj">
-          <div class="proj-id">P5</div>
           <div class="proj-main">
             <div class="proj-head">
               <h3>Gas flaring trends and forecasting in Nigeria</h3>
@@ -1676,5 +1644,5 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   }
 })();
 </script>
-</body>
-</html>
+
+</body></html>
