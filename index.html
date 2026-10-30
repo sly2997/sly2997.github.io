@@ -486,6 +486,13 @@ section[id]{scroll-margin-top:84px}
 .about-body{display:flex; flex-direction:column; gap:16px; max-width:66ch}
 .about-body p{font-size:1.03rem; line-height:1.72; color:var(--cream)}
 .about-body b{color:var(--rose-bright); font-weight:600}
+.roles{display:flex; flex-direction:column; gap:10px; margin-top:2px}
+.roles-k{font-family:var(--font-mono); font-size:.68rem; letter-spacing:.17em; text-transform:uppercase; color:var(--brass)}
+.roles ul{margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:8px}
+.roles li{
+  font-family:var(--font-mono); font-size:.78rem; color:var(--cream);
+  background:var(--ink); border:1px solid var(--line); border-radius:2px; padding:7px 13px;
+}
 
 /* ---------- contact form ---------- */
 .cform{display:flex; flex-direction:column; gap:14px; max-width:600px}
@@ -657,12 +664,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
           <h1>Sylvia<br>Igbafe</h1>
         </div>
         <hr class="rule r2">
-        <p class="lead r3">I research water-based drilling muds: whether locally sourced,
-        biodegradable additives can stand in for imported CMC, PAC and xanthan gum, and whether
-        Nigerian bentonite can be treated to meet API&nbsp;13A. I am building a machine learning
-        toolkit around that work.</p>
-        <p class="status-note r4">Portfolio in build, October 2026 to April 2027.<br>
-        Five research projects. The status on each one is current, not aspirational.</p>
       </div>
 
       <div class="portrait r5">
@@ -690,22 +691,20 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   <section class="stack" id="about">
     <h2>About me</h2>
     <div class="about-body">
-      <p>I am a petroleum engineer and PhD researcher working on drilling fluids.</p>
-      <p>My research sits on one question: can water-based mud, built from materials Nigeria already
-      has, do the work that imported additives and oil-based systems do now? That means testing
-      <b>biodegradable additives</b> such as cassava starch, gum arabic and plantain peel against
-      conventional CMC, PAC and xanthan gum on the same rheology and fluid-loss tests, and asking
-      whether local bentonite can be treated to meet <b>API&nbsp;13A</b>.</p>
-      <p>I have six published papers across drilling fluids, corrosion inhibition and green hydrogen,
-      and I led the two drilling-fluid studies: spear grass as a fluid-loss additive in
-      salt-contaminated water-based mud, and a bio-lubricant from African star apple seed oil as a
-      diesel replacement in oil-based mud.</p>
-      <p>I am now learning to apply <b>machine learning</b> to that work by building datasets
-      from published literature, then modelling rheology and degradation instead of reading them off
-      one experiment at a time. The projects below are that effort, and the status on each one is
-      current rather than aspirational.</p>
-      <p>I am looking for research analyst work in oil and gas, where the job is turning difficult
-      data into something a drilling engineer can act on.</p>
+      <p>I am a petroleum engineer and PhD researcher specialising in <b>drilling engineering</b>,
+      with a focus on water-based mud and biodegradable drilling additives. I also work in production
+      and reservoir engineering.</p>
+      <p>I now combine my petroleum engineering background with <b>machine learning and data
+      analytics</b> to turn difficult field and laboratory data into insights engineers can act on.</p>
+      <div class="roles">
+        <span class="roles-k">Roles I am open to</span>
+        <ul>
+          <li>Research analyst, oil and gas</li>
+          <li>Drilling fluids engineer</li>
+          <li>R&amp;D engineer, oilfield chemicals</li>
+          <li>Data analyst, oil and gas</li>
+        </ul>
+      </div>
     </div>
   </section>
   <section class="stack" id="journey">
@@ -729,7 +728,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
       <article class="tl-item">
         <span class="tl-node"></span>
         <span class="tl-year">2026 to present <span class="tl-now">Now</span></span>
-        <p class="tl-what">Petroleum engineering machine learning and AI</p>
+        <p class="tl-what">PhD petroleum engineering, machine learning and AI</p>
       </article>
     </div>
   </section>
@@ -748,8 +747,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
     <div class="sec-head">
       <div class="sec-head-copy">
         <h2>Selected work</h2>
-        <p class="muted" style="font-size:.94rem; max-width:56ch">Each project answers one question and
-        closes with a cited report. Nothing is listed as finished before it is.</p>
       </div>
       <div class="vignette">
         <div class="vig-frame"><img src="scene-desk.png" alt="Sylvia at her desk with a laptop and research notes"></div>
@@ -859,8 +856,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
     <div class="sec-head">
       <div class="sec-head-copy">
         <h2>Research</h2>
-        <p class="muted" style="font-size:.94rem; max-width:56ch">Six published papers. The two
-        drilling-fluid studies I led are shown first; the rest are behind &ldquo;See more&rdquo;.</p>
       </div>
       <div class="vignette">
         <div class="vig-frame"><img src="scene-lab.png" alt="Sylvia at the laboratory bench with a water-based mud checklist"></div>
@@ -932,8 +927,6 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
 
   <section class="stack" id="shelf">
     <h2>On my shelf</h2>
-    <p class="muted" style="font-size:.94rem; max-width:56ch">What I am reading to put machine
-    learning to work on drilling data.</p>
 
     <div class="books">
       <article class="bookrow">
@@ -1300,7 +1293,7 @@ a:focus-visible{outline:2px solid var(--rose); outline-offset:3px}
   </section>
 
   <footer>
-    Sylvia Igbafe &middot; drilling fluids research portfolio &middot; status updated as each project closes
+    Sylvia Igbafe portfolio
   </footer>
 
 </div></div>
